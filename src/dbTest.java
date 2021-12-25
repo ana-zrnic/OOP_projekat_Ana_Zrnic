@@ -1,36 +1,41 @@
 import java.sql.*;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
 
 public class dbTest {
-    private final String DB_URL = "jdbc:mysql://localhost:3306/ors1_opp_2021_2022";
-    private final String USER = "root";
-    private final String PASS = "";
+    private static final String DB_URL = "jdbc:mysql://localhost:3306/ors1_opp_2021_2022";
+    private static final String USER = "root";
+    private static final String PASS = "";
+    private static Connection conn = null;
+    private static Statement stmt;
 
-    public Map<Integer, String> queryTest(String idKol, String kolona, String tabela) {
-        Map<Integer, String> temp = new HashMap<>();
-        String QUERY = "SELECT " + idKol + ", " + kolona + " FROM " + tabela;
-
-        Connection conn = null;
+    public dbTest() {
         try {
             conn = DriverManager.getConnection(DB_URL, USER, PASS);
-            Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery(QUERY);
-            while (rs.next()) {
-                temp.put(rs.getInt(idKol), rs.getString(kolona));
-            }
+            stmt = conn.createStatement();
         } catch (SQLException e) {
             throw new Error("Problem", e);
-        } finally {
-            try {
-                if (conn != null) {
-                    conn.close();
-                }
-            } catch (SQLException ex) {
-                System.out.println(ex.getMessage());
-            }
         }
-        return temp;
+    }
+    private static void closeConn (){
+        try {
+            if (conn != null) { //da li ostaviti ovaj if ili izbaciti null na pocetku
+                conn.close();
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    public static void kreirajPristupnePodatke (){
+        String QUERY = "SELECT korisnicko_ime, sifra, email FROM pristupni_podaci";
+        try {
+            ResultSet rs = stmt.executeQuery(QUERY);
+            while (rs.next()) {
+                new PristupniPodaci(rs.getString("korisnicko_ime"), rs.getString("email"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        closeConn();
     }
 
 }

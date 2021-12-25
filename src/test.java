@@ -1,11 +1,13 @@
-import java.sql.*;
+import java.util.ArrayList;
 
 public class test {
-    public void test(){
-    }
     public static void main(String[] args) {
-        //Ucenik ucenik = new Ucenik("Jovan");
-        //System.out.println(ucenik.getIme());
+        dbTest konekcija = new dbTest();    //Preko objekta ili preko staticke met?
+        dbTest.kreirajPristupnePodatke(); //pozvati iz maina?
+        //PristupniPodaci.kreirajDbObjekte(); //moze staticka metoda iako nema objekta iste klase
+        PristupniPodaci test = new PristupniPodaci("ana", "anamail");
+
+        System.out.println(PristupniPodaci.getSviPodaci()); //uspjesan db pull
 
     }
 }
