@@ -1,3 +1,5 @@
+package tabele;
+
 import java.util.ArrayList;
 
 public class Skola {

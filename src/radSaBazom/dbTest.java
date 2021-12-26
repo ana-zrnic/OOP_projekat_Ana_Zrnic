@@ -1,3 +1,5 @@
+package radSaBazom;
+
 import java.sql.*;
 /**
  * testna klasa
