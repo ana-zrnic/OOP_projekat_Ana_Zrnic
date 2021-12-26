@@ -1,7 +1,9 @@
+package tabele;
+
 import java.util.ArrayList;
 
 public class PristupniPodaci {
-    //private static dbTest konekcija = new dbTest();
+    //private static radSaBazom.dbTest konekcija = new radSaBazom.dbTest();
     private static ArrayList<PristupniPodaci> sviPristupniPodaci = new ArrayList<>();
     private final String korisnickoIme, email;  //final?
     private String sifra;
@@ -12,23 +14,40 @@ public class PristupniPodaci {
         this.sifra = korisnickoIme+"123";
         if(postojiNalog(this))  //poslati samo atribute ili citav objekat?
             System.out.println("postoji nalog sa ovim podacima"); //exception??
-        else
+        else {
             sviPristupniPodaci.add(this);
+        }
     }
+
+    public static ArrayList<PristupniPodaci> getSviPodaci (){
+        return sviPristupniPodaci;
+    }
+
+    public String getKorisnickoIme() {
+        return korisnickoIme;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getSifra() {
+        return sifra;
+    }
+
+    public String toString (){
+        return "korisnik: "+this.korisnickoIme +", "+ this.sifra+", " + this.email;
+    }
+
+    public static void kreirajDbObjekte(){
+        //konekcija.kreirajPristupnePodatke();
+    }
+
     private boolean postojiNalog(PristupniPodaci podaci){
         if(sviPristupniPodaci!=null)
             for(PristupniPodaci p : sviPristupniPodaci)
                 if(p.korisnickoIme.equals(podaci.korisnickoIme) && p.email.equals(podaci.email))
                     return true;
         return false;
-    }
-    public static ArrayList<PristupniPodaci> getSviPodaci (){
-        return sviPristupniPodaci;
-    }
-    public String toString (){
-        return "korisnik: "+this.korisnickoIme +", "+ this.sifra+", " + this.email;
-    }
-    public static void kreirajDbObjekte(){
-        //konekcija.kreirajPristupnePodatke();
     }
 }
