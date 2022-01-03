@@ -1,4 +1,4 @@
-package main.controllers;
+package main;
 
 
 import javafx.fxml.FXML;
@@ -7,16 +7,12 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
-import main.Main;
 import tabele.PristupniPodaci;
 
 import java.io.IOException;
@@ -59,9 +55,6 @@ public class LoginController {
                 scene = new Scene(root);
                 stage.setScene(scene);
                 stage.show();
-                /*Stage homepage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-                homepage.setScene(new Scene(new Pane()));*/
-
             }
     }
 
