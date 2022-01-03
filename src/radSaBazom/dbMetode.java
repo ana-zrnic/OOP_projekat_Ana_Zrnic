@@ -25,7 +25,7 @@ public class dbMetode extends dbConn{
             e.printStackTrace();
         }
     }
-    public static void azurirajPristupnePodatke (int id, String sifra){
+    public static void azurirajPristupnePodatke (int id, String sifra){ //ne uzimati id?
         String QUERY = "UPDATE pristupni_podaci SET sifra = '"+ sifra + "' WHERE id = "+id;
         try {
             stmt.executeUpdate(QUERY);

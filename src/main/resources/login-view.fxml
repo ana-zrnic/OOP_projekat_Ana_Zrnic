@@ -5,27 +5,29 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="loginPage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="900.0" style="-fx-background-color: #dfe8f7;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.LoginController">
+<AnchorPane fx:id="loginPage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1100.0" style="-fx-background-color: #dfe8f7;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.LoginController">
    <children>
-      <Rectangle arcHeight="30.0" arcWidth="30.0" fill="WHITE" height="333.0" layoutX="262.0" layoutY="206.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="376.0" />
-      <Label layoutX="288.0" layoutY="231.0" prefHeight="38.0" prefWidth="82.0" style="-fx-font-family: gothic; -fx-font-weight: 700;" text="Login" textFill="#303030">
+      <Rectangle arcHeight="30.0" arcWidth="30.0" fill="WHITE" height="333.0" layoutX="367.0" layoutY="200.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="376.0" />
+      <Label layoutX="393.0" layoutY="225.0" prefHeight="38.0" prefWidth="82.0" style="-fx-font-family: gothic; -fx-font-weight: 700;" text="Login" textFill="#303030">
          <font>
             <Font name="Century Gothic" size="23.0" />
          </font>
       </Label>
-      <Label layoutX="289.0" layoutY="286.0" text="E-mail adresa" />
-      <Label layoutX="288.0" layoutY="357.0" text="Sifra" />
-      <TextField fx:id="emailInpt" layoutX="287.0" layoutY="307.0" prefHeight="38.0" prefWidth="326.0" promptText="unesite e-mail">
+      <Label layoutX="394.0" layoutY="280.0" text="E-mail adresa" />
+      <Label layoutX="393.0" layoutY="351.0" text="Sifra" />
+      <TextField fx:id="emailInpt" layoutX="392.0" layoutY="301.0" prefHeight="38.0" prefWidth="326.0" promptText="unesite e-mail">
          <font>
             <Font size="14.0" />
          </font>
       </TextField>
-      <Button fx:id="loginBtn" layoutX="287.0" layoutY="475.0" mnemonicParsing="false" onMouseClicked="#login" prefHeight="38.0" prefWidth="326.0" style="-fx-background-color: #3e92ff;" text="Uloguj me" textFill="WHITE">
+      <Button fx:id="loginBtn" layoutX="392.0" layoutY="469.0" mnemonicParsing="false" onMouseClicked="#login" prefHeight="38.0" prefWidth="326.0" style="-fx-background-color: #3e92ff;" text="Uloguj me" textFill="WHITE">
          <font>
             <Font size="14.0" />
          </font>
@@ -33,16 +35,33 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Circle fx:id="logo" fill="WHITE" layoutX="450.0" layoutY="134.0" radius="51.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
-      <PasswordField fx:id="passInpt" layoutX="287.0" layoutY="376.0" prefHeight="38.0" prefWidth="326.0" promptText="unesite sifru">
+      <Circle fx:id="logo" fill="WHITE" layoutX="551.0" layoutY="134.0" radius="51.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+      <PasswordField fx:id="passInpt" layoutX="392.0" layoutY="370.0" prefHeight="38.0" prefWidth="326.0" promptText="unesite sifru">
          <font>
             <Font size="14.0" />
          </font>
       </PasswordField>
-      <Button fx:id="showPassBtn" layoutX="570.0" layoutY="422.0" mnemonicParsing="false" onMousePressed="#showPass" onMouseReleased="#hidePass" prefHeight="18.0" prefWidth="42.0" style="-fx-background-color: blue;">
+      <Button fx:id="showPassBtn" layoutX="673.0" layoutY="412.0" mnemonicParsing="false" onMousePressed="#showPass" onMouseReleased="#hidePass" prefHeight="24.0" prefWidth="41.0" style="-fx-background-color: none;">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
+         <graphic>
+            <ImageView cache="true" cacheHint="QUALITY" fitHeight="24.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@img/eye_icon.png" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
+         </graphic>
       </Button>
+      <Label layoutX="612.0" layoutY="415.0" text="Prikazi sifru" textFill="#3e92ff" />
+      <Label fx:id="loginErr" alignment="CENTER" layoutX="428.0" layoutY="448.0" prefHeight="18.0" prefWidth="253.0" style="visibility: false;" textAlignment="CENTER" textFill="RED" />
+      <ImageView cache="true" cacheHint="QUALITY" fitHeight="79.0" fitWidth="82.0" layoutX="511.0" layoutY="94.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@img/school-book-icon.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>
