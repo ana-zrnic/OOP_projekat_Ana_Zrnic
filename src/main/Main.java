@@ -2,6 +2,7 @@ package main;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import radSaBazom.dbConn;
@@ -12,16 +13,16 @@ import java.io.IOException;
 public class Main extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("resources/login-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 900, 700);
+        Parent root = FXMLLoader.load(getClass().getResource("resources/login-view.fxml"));
+        Scene scene = new Scene(root);
         stage.setTitle("E-dnevnik");
         stage.setScene(scene);
         stage.setResizable(false);
 
-        //dbConn konekcija = new dbConn();
-        dbMetode.kreirajPristupnePodatke();
-
         stage.show();
+
+        dbConn konekcija = new dbConn();
+        dbMetode.kreirajPristupnePodatke();
     }
 
     public static void main(String[] args) {
