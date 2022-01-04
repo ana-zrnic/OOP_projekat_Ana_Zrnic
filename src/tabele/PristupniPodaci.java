@@ -8,10 +8,10 @@ public class PristupniPodaci {
     private final String korisnickoIme, email;  //final?
     private String sifra;
 
-    public PristupniPodaci (String korisnickoIme, String email){
+    public PristupniPodaci (String korisnickoIme, String email, String sifra){
         this.korisnickoIme = korisnickoIme; //neka korisnicko ime u obrascu prilikom kreiranja automatski bude ime.prezime
         this.email = email;
-        this.sifra = korisnickoIme+"123";
+        this.sifra = sifra;
         if(postojiNalog(this))  //poslati samo atribute ili citav objekat?
             System.out.println("postoji nalog sa ovim podacima"); //exception??
         else {
