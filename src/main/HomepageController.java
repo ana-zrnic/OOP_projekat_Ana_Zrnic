@@ -69,6 +69,24 @@ public class HomepageController {
     private TextField noviProfPrezime;
 
     @FXML
+    private TextField noviProfUsrnm;
+
+    @FXML
+    private TextField noviProfMail;
+
+    @FXML
+    private TextField noviUcIme;
+
+    @FXML
+    private TextField noviUcPrezime;
+
+    @FXML
+    private TextField noviUcUsrnm;
+
+    @FXML
+    private TextField noviUcMail;
+
+    @FXML
     private Button noviProfesor;
 
     @FXML
@@ -121,6 +139,9 @@ public class HomepageController {
 
     @FXML
     private RadioButton z1;
+
+    @FXML
+    private Button dodajUcBtn;
 
 
     @FXML
@@ -197,13 +218,14 @@ public class HomepageController {
 
     @FXML
     void podnesiProf(MouseEvent event) { //samo za prof
-        Boolean tacnostObrasca = true;
-        String korisnickoIme = noviProfIme.getText().toLowerCase()+"."+noviProfPrezime.getText().toLowerCase();
-        if(korisnickoIme.charAt(0)=='.' || korisnickoIme.charAt(korisnickoIme.length()-1)=='.')
-            tacnostObrasca = false;
-        String email = korisnickoIme+"@gmail.com";
-        String sifra = korisnickoIme+"123";
+        boolean tacnostObrasca = true;
+        String korisnickoIme = noviProfUsrnm.getText();
+        String ime = noviProfIme.getText();
+        String prezime = noviProfPrezime.getText();
         int pol = -1;
+        String email = noviProfMail.getText();
+        String sifra = korisnickoIme+"123";
+
         if(z.isSelected())
             pol=0;
         else if(m.isSelected())
@@ -211,17 +233,53 @@ public class HomepageController {
         else
             tacnostObrasca=false;
 
+        if(korisnickoIme.equals("") || ime.equals("") || prezime.equals("") || email.equals(""))
+            tacnostObrasca = false;
+
         if(tacnostObrasca){
-            dbMetode.dodajPristupnePodatke(email,korisnickoIme,sifra);
-            dbMetode.dodajProfesora(noviProfIme.getText(), noviProfPrezime.getText(), pol);
+            int id = dbMetode.dodajPristupnePodatke(email,korisnickoIme,sifra);
+            dbMetode.dodajProfesora(ime, prezime, pol, id);
             Button btn = (Button) event.getSource();
             Pane pane = (Pane) btn.getParent();
             pane.setVisible(false);
-            naslovObrasca.setText("Uspjesno ste kreairali novog profesora");
+            naslovObrasca.setText("Uspjesno ste kreirali novog profesora");
         }
         else {
             naslovObrasca.setText("Podaci nisu dobri");
         }
+    }
+
+    @FXML
+    void podnesiUc(MouseEvent event) {
+        Boolean tacnostObrasca = true;
+        String korisnickoIme = noviUcUsrnm.getText();
+        String ime = noviUcIme.getText();
+        String prezime = noviUcPrezime.getText();
+        int pol = -1;
+        String email = noviUcMail.getText();
+        String sifra = korisnickoIme+"123";
+
+        if(korisnickoIme.equals("") || ime.equals("") || prezime.equals(""))
+            tacnostObrasca = false;
+        if(z1.isSelected())
+            pol=0;
+        else if(m1.isSelected())
+            pol=1;
+        else
+            tacnostObrasca=false;
+
+        if(tacnostObrasca){
+            int id = dbMetode.dodajPristupnePodatke(email,korisnickoIme,sifra);
+            dbMetode.dodajUcenika(ime, prezime, pol, id);
+            Button btn = (Button) event.getSource();
+            Pane pane = (Pane) btn.getParent();
+            pane.setVisible(false);
+            naslovObrasca.setText("Uspjesno ste kreirali novog ucenika");
+        }
+        else {
+            naslovObrasca.setText("Podaci nisu dobri");
+        }
+
     }
 
 
