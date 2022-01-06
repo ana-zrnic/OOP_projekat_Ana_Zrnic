@@ -24,6 +24,7 @@ public class Main extends Application {
         dbConn konekcija = new dbConn();
         dbMetode.kreirajPristupnePodatke();
         dbMetode.kreirajProfesore();
+        dbMetode.kreirajUcenike();
     }
 
     public static void main(String[] args) {
