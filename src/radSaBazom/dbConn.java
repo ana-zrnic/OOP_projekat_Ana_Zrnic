@@ -6,6 +6,8 @@ import java.sql.*;
  */
 public class dbConn {
     protected static final String DB_URL = "jdbc:mysql://localhost:3306/ors1_opp_2021_2022";
+    //protected static final String DB_URL = "jdbc:mysql://localhost:3306/dbaza";
+
     protected static final String USER = "root";
     protected static final String PASS = "";
     protected static Connection conn = null;
