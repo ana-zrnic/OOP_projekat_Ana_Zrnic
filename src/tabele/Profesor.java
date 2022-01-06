@@ -14,5 +14,9 @@ public class Profesor {
         this.prezime = prezime;
         this.pristupniPodaci = pristupniPodaci;
     }
+
+    public ArrayList<Profesor> getSviProfesori(){
+        return sviProfesori;
+    }
 }
 

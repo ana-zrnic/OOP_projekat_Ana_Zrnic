@@ -9,7 +9,7 @@ public class Ucenik {
     private int pol;
     private final PristupniPodaci pristupniPodaci;
 
-    public Ucenik(String ime, String prezime, int pol, PristupniPodaci pristupniPodaci){
+    public Ucenik(PristupniPodaci pristupniPodaci, String ime, String prezime, int pol){
         this.ime = ime;
         this.prezime = prezime;
         this.pristupniPodaci = pristupniPodaci;
