@@ -232,12 +232,12 @@
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <Label layoutX="65.0" layoutY="177.0" text="Pol">
+                  <Label layoutX="64.0" layoutY="319.0" text="Pol">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <Group fx:id="genderGrp" layoutX="128.0" layoutY="178.0">
+                  <Group fx:id="genderGrp" layoutX="127.0" layoutY="320.0">
                      <children>
                         <RadioButton fx:id="z" mnemonicParsing="false" text="Z">
                            <toggleGroup>
@@ -255,6 +255,18 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
+                  <TextField fx:id="noviProfMail" layoutX="64.0" layoutY="183.0" prefHeight="25.0" prefWidth="184.0" />
+                  <TextField fx:id="noviProfUsrnm" layoutX="64.0" layoutY="255.0" prefHeight="25.0" prefWidth="184.0" />
+                  <Label layoutX="63.0" layoutY="163.0" text="E-mail">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="63.0" layoutY="235.0" text="Korisnicko ime">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
                </children>
             </Pane>
             <Pane fx:id="ucObrazac" layoutX="226.0" layoutY="160.0" prefHeight="469.0" prefWidth="314.0" style="-fx-background-color: E3E9ED;" visible="false">
@@ -266,8 +278,8 @@
                   </DropShadow>
                </effect>
                <children>
-                  <TextField layoutX="65.0" layoutY="47.0" prefHeight="25.0" prefWidth="184.0" />
-                  <TextField layoutX="65.0" layoutY="116.0" prefHeight="25.0" prefWidth="184.0" />
+                  <TextField fx:id="noviUcIme" layoutX="65.0" layoutY="47.0" prefHeight="25.0" prefWidth="184.0" />
+                  <TextField fx:id="noviUcPrezime" layoutX="65.0" layoutY="116.0" prefHeight="25.0" prefWidth="184.0" />
                   <Label layoutX="65.0" layoutY="24.0" text="Ime">
                      <font>
                         <Font size="14.0" />
@@ -278,12 +290,12 @@
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <Label layoutX="65.0" layoutY="177.0" text="Pol">
+                  <Label layoutX="64.0" layoutY="318.0" text="Pol">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <Group fx:id="genderGrp1" layoutX="128.0" layoutY="178.0">
+                  <Group fx:id="genderGrp1" layoutX="127.0" layoutY="319.0">
                      <children>
                         <RadioButton fx:id="z1" mnemonicParsing="false" text="Z">
                            <toggleGroup>
@@ -293,7 +305,7 @@
                         <RadioButton fx:id="m1" layoutX="88.0" mnemonicParsing="false" text="M" toggleGroup="$group1" />
                      </children>
                   </Group>
-                  <Button layoutX="122.0" layoutY="408.0" mnemonicParsing="false" style="-fx-background-color: #3e92ff;" text="Podnesi" textFill="WHITE">
+                  <Button fx:id="dodajUcBtn" layoutX="122.0" layoutY="408.0" mnemonicParsing="false" onMouseClicked="#podnesiUc" style="-fx-background-color: #3e92ff;" text="Podnesi" textFill="WHITE">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -301,6 +313,18 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
+                  <Label layoutX="65.0" layoutY="163.0" text="E-mail">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="noviUcMail" layoutX="64.0" layoutY="183.0" prefHeight="25.0" prefWidth="184.0" />
+                  <Label layoutX="64.0" layoutY="235.0" text="Korisnicko ime">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="noviUcUsrnm" layoutX="64.0" layoutY="255.0" prefHeight="25.0" prefWidth="184.0" />
                </children>
             </Pane>
             <Pane fx:id="predObrazac" layoutX="226.0" layoutY="160.0" prefHeight="469.0" prefWidth="314.0" style="-fx-background-color: E3E9ED;" visible="false">
