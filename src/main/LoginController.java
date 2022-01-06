@@ -53,7 +53,7 @@ public class LoginController {
 
         System.out.println(email+" "+pass);
 
-        for(PristupniPodaci p : PristupniPodaci.getSviPodaci())
+        for(PristupniPodaci p : PristupniPodaci.getSviPodaci().values())
             if(p.getEmail().equals(email) && p.getSifra().equals(pass)){
                 root =  FXMLLoader.load(getClass().getResource("resources/homepage-view.fxml"));
                 stage = (Stage)((Node)event.getSource()).getScene().getWindow();
