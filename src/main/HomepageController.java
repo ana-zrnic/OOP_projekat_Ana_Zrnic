@@ -1,12 +1,15 @@
 package main;
 
+import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
@@ -15,10 +18,13 @@ import radSaBazom.dbMetode;
 import tabele.PristupniPodaci;
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.Collection;
 import java.util.Locale;
+import java.util.Objects;
+import java.util.ResourceBundle;
 
-public class HomepageController {
+public class HomepageController{
     @FXML
     private AnchorPane desniPane;
 
@@ -180,6 +186,7 @@ public class HomepageController {
     private Scene scene;
     private Parent root;
 
+
     @FXML
     void logout(MouseEvent event) throws IOException {
         root =  FXMLLoader.load(getClass().getResource("resources/login-view.fxml"));
@@ -187,6 +194,24 @@ public class HomepageController {
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
+    }
+    /*@FXML
+    void setProfInfo (MouseEvent event){
+        Node node = (Node) event.getSource();
+        Stage stage = (Stage) node.getScene().getWindow();
+        User u = (User) stage.getUserData();
+    }*/
+    public void setInfo(User u) {
+        //User u = (User) primaryStage.getUserData();
+        profileUsrnm.setText(u.getKorisnickoIme());
+        if(u.getPol()==1){
+            Image image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("resources/img/teacher-m.png")));
+            profilePctr.setImage(image);
+        }
+        else {
+            Image image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("resources/img/teacher-f.png")));
+            profilePctr.setImage(image);
+        }
     }
 
     @FXML
