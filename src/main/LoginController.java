@@ -16,6 +16,7 @@ import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import tabele.PristupniPodaci;
 import radSaBazom.dbMetode;
+import tabele.Profesor;
 
 import java.io.IOException;
 
@@ -31,7 +32,7 @@ public class LoginController {
     private AnchorPane loginPage;
 
     @FXML
-    private TextField emailInpt;
+    private TextField usernameInpt;
 
     @FXML
     private Button loginBtn;
@@ -49,26 +50,35 @@ public class LoginController {
 
     @FXML
     void login(MouseEvent event) throws Exception {
-        //login sa usernamom? ako umjesto email stavimo login onda lako mozemo porediti sifre bez petlje
-        String email = emailInpt.getText();
+        String username = usernameInpt.getText();
         String pass = dbMetode.MD5(passInpt.getText()); //poredi sifre hashovane u md5 hashu
+        System.out.println(usernameInpt.getText()+" "+pass);
 
-        System.out.println(email+" "+pass);
+        User u = new User(username);
+        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 
         for(PristupniPodaci p : PristupniPodaci.getSviPodaci().values())
-            if(p.getEmail().equals(email) && p.getSifra().equals(pass)){
-                root =  FXMLLoader.load(getClass().getResource("resources/homepage-view.fxml"));
-                stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-                scene = new Scene(root);
-                stage.setScene(scene);
-                stage.show();
+            if(p.getKorisnickoIme().equals(username) && p.getSifra().equals(pass)){
+                if(tipNaloga(username)){ //za prof
+
+                    u.setPol(profPol(p.getId()));
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("resources/homepage-view.fxml"));
+                    root =  loader.load();
+                    HomepageController controller = loader.getController();
+                    controller.setInfo(u);
+                    scene = new Scene(root);
+                    stage.setScene(scene);
+                    stage.show();
+                }
+                else //ovdje ide za ucenika
+                    ;
             }
-            else if(email.equals("") || pass.equals("")){
+            else if(username.equals("") || pass.equals("")){
                     loginErr.setVisible(true);
                     loginErr.setText("Prazan e-mail ili sifra polje");
             }
             else{
-                emailInpt.setText("");
+                usernameInpt.setText("");
                 passInpt.setText("");
                 loginErr.setVisible(true);
                 loginErr.setText("Ne postoji nalog sa ovim podacima");
@@ -88,4 +98,17 @@ public class LoginController {
         passInpt.setPromptText("unesite sifru");
     }
 
+    private int profPol(int kljuc){
+        for(Profesor p : Profesor.getSviProfesori().values())
+            if(kljuc==p.getPristupniPodaci().getId())
+                return p.getPol();
+        return -1;
+    }
+    private boolean tipNaloga(String usrnm){
+        for (Profesor p : Profesor.getSviProfesori().values())
+            if(p.getPristupniPodaci().getKorisnickoIme().equals(usrnm))
+                return true;
+        return false;
+
+    }
 }
