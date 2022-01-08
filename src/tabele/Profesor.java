@@ -1,22 +1,29 @@
 package tabele;
 
-import java.util.ArrayList;
+import java.util.Hashtable;
+import java.util.Map;
 
 public class Profesor {
-    private static ArrayList<Profesor> sviProfesori = new ArrayList<>();
+    //private static ArrayList<Profesor> sviProfesori = new ArrayList<>();
+    private static Map<Integer, Profesor> sviProfesori = new Hashtable<>();
     private final PristupniPodaci pristupniPodaci; //?final
     private String ime, prezime;
-    private int pol;
+    private int pol, id;
 
-    public Profesor (PristupniPodaci pristupniPodaci, String ime, String prezime, int pol){
+    public Profesor (PristupniPodaci pristupniPodaci, String ime, String prezime, int pol, int id){
         this.ime = ime;
         this.pol = pol;
         this.prezime = prezime;
+        this.id = id;
         this.pristupniPodaci = pristupniPodaci;
+
+        //posto se prvo kreira pristupni podaci i oni su jedinstveni za svakog prof ili ucenika onda nije potrebno provjeravati da li ima isti prof?
+        sviProfesori.put(id, this);
     }
 
-    public ArrayList<Profesor> getSviProfesori(){
+    public Map<Integer, Profesor> getSviProfesori(){
         return sviProfesori;
     }
+
 }
 
