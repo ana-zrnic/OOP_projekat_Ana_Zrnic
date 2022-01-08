@@ -21,6 +21,12 @@ public class HomepageController {
     private Button dodajProfBtn;
 
     @FXML
+    private Button dodajUcBtn;
+
+    @FXML
+    private Button dodajPredBtn;
+
+    @FXML
     private Group genderGrp;
 
     @FXML
@@ -87,6 +93,12 @@ public class HomepageController {
     private TextField noviUcMail;
 
     @FXML
+    private TextField noviPredNaziv;
+
+    @FXML
+    private TextField noviPredRaz;
+
+    @FXML
     private Button noviProfesor;
 
     @FXML
@@ -140,8 +152,6 @@ public class HomepageController {
     @FXML
     private RadioButton z1;
 
-    @FXML
-    private Button dodajUcBtn;
 
 
     @FXML
@@ -217,7 +227,7 @@ public class HomepageController {
     }
 
     @FXML
-    void podnesiProf(MouseEvent event) { //samo za prof
+    void podnesiProf(MouseEvent event) throws Exception { //samo za prof
         boolean tacnostObrasca = true;
         String korisnickoIme = noviProfUsrnm.getText();
         String ime = noviProfIme.getText();
@@ -239,8 +249,16 @@ public class HomepageController {
         if(tacnostObrasca){
             int id = dbMetode.dodajPristupnePodatke(email,korisnickoIme,sifra);
             dbMetode.dodajProfesora(ime, prezime, pol, id);
-            Button btn = (Button) event.getSource();
-            Pane pane = (Pane) btn.getParent();
+            //Button btn = (Button) event.getSource();
+            Pane pane = (Pane) dodajProfBtn.getParent();
+            noviProfIme.clear();
+            noviProfPrezime.clear();
+            noviProfMail.clear();
+            noviProfUsrnm.clear();
+            if(pol==1)
+                m.setSelected(false);
+            else
+                z.setSelected(false);
             pane.setVisible(false);
             naslovObrasca.setText("Uspjesno ste kreirali novog profesora");
         }
@@ -250,8 +268,8 @@ public class HomepageController {
     }
 
     @FXML
-    void podnesiUc(MouseEvent event) {
-        Boolean tacnostObrasca = true;
+    void podnesiUc(MouseEvent event) throws Exception {
+        boolean tacnostObrasca = true;
         String korisnickoIme = noviUcUsrnm.getText();
         String ime = noviUcIme.getText();
         String prezime = noviUcPrezime.getText();
@@ -271,8 +289,16 @@ public class HomepageController {
         if(tacnostObrasca){
             int id = dbMetode.dodajPristupnePodatke(email,korisnickoIme,sifra);
             dbMetode.dodajUcenika(ime, prezime, pol, id);
-            Button btn = (Button) event.getSource();
-            Pane pane = (Pane) btn.getParent();
+            //Button btn = (Button) event.getSource();
+            Pane pane = (Pane) dodajUcBtn.getParent();
+            noviUcIme.clear();
+            noviUcPrezime.clear();
+            noviUcMail.clear();
+            noviUcUsrnm.clear();
+            if(pol==1)
+                m1.setSelected(false);
+            else
+                z1.setSelected(false);
             pane.setVisible(false);
             naslovObrasca.setText("Uspjesno ste kreirali novog ucenika");
         }
@@ -281,6 +307,33 @@ public class HomepageController {
         }
 
     }
+
+    @FXML
+    void podnesiPred(MouseEvent event) {
+        boolean tacnostObrasca = true;
+        String naziv = null;
+        int razred = -1;
+        if(!noviPredNaziv.getText().equals("") && !noviPredRaz.getText().equals("")){
+            naziv = noviPredNaziv.getText();
+            razred = Integer.parseInt(noviPredRaz.getText());
+        }
+        else
+            tacnostObrasca=false;
+
+        if(tacnostObrasca){
+            dbMetode.dodajPredmet(naziv, razred);
+            Pane pane = (Pane) dodajPredBtn.getParent();
+            noviPredNaziv.clear();
+            noviPredRaz.clear();
+            pane.setVisible(false);
+            naslovObrasca.setText("Uspjesno ste kreirali novi predmet");
+        }
+        else
+            naslovObrasca.setText("Podaci nisu dobri");
+
+    }
+
+
 
 
 }
