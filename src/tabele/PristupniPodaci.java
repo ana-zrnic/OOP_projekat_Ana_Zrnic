@@ -40,6 +40,10 @@ public class PristupniPodaci {
         return sifra;
     }
 
+    public int getId() {
+        return id;
+    }
+
     public String toString (){
         return "[korisnik: "+this.korisnickoIme +", "+ this.sifra+", " + this.email+"]";
     }

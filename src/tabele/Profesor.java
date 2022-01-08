@@ -21,9 +21,29 @@ public class Profesor {
         sviProfesori.put(id, this);
     }
 
-    public Map<Integer, Profesor> getSviProfesori(){
+    public static Map<Integer, Profesor> getSviProfesori(){
         return sviProfesori;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public int getPol() {
+        return pol;
+    }
+
+    public String getIme() {
+        return ime;
+    }
+
+    public String getPrezime() {
+        return prezime;
+    }
+
+    public PristupniPodaci getPristupniPodaci(){
+        return pristupniPodaci;
+    }
 }
+
 
