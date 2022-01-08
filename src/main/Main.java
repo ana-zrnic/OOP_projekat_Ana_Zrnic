@@ -25,6 +25,8 @@ public class Main extends Application {
         dbMetode.kreirajPristupnePodatke();
         dbMetode.kreirajProfesore();
         dbMetode.kreirajUcenike();
+        dbMetode.kreirajPredmete();
+        dbMetode.kreirajSkole();
     }
 
     public static void main(String[] args) {

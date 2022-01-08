@@ -122,5 +122,28 @@ public class dbMetode extends dbConn{
             e.printStackTrace();
         }
     }
+    public static void kreirajSkole(){
+        String QUERY = "SELECT id, naziv, grad, mjesto, drzava FROM skola";
+        try {
+            ResultSet rs = stmt.executeQuery(QUERY);
+            while (rs.next()) {
+                new Skola(rs.getString("naziv"), rs.getString("grad"), rs.getString("mjesto"), rs.getString("drzava"), rs.getInt("id"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    public static void dodajSkolu(String naziv, String grad, String mjesto, String drzava){
+        String QUERY = "INSERT INTO skola VALUES (DEFAULT, '"+naziv+"', '"+grad+"', '"+mjesto+"', '"+drzava+"')";
+        try {
+            stmt.executeUpdate(QUERY, Statement.RETURN_GENERATED_KEYS);
+            ResultSet rs = stmt.getGeneratedKeys();
+            rs.next();
+            int id = rs.getInt(1);
+            new Skola(naziv, grad, mjesto, drzava, id);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
 }

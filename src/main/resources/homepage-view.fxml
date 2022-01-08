@@ -336,8 +336,8 @@
                   </DropShadow>
                </effect>
                <children>
-                  <TextField layoutX="65.0" layoutY="47.0" prefHeight="25.0" prefWidth="184.0" />
-                  <TextField layoutX="65.0" layoutY="116.0" prefHeight="25.0" prefWidth="184.0" />
+                  <TextField fx:id="noviPredNaziv" layoutX="65.0" layoutY="47.0" prefHeight="25.0" prefWidth="184.0" />
+                  <TextField fx:id="noviPredRaz" layoutX="65.0" layoutY="116.0" prefHeight="25.0" prefWidth="184.0" />
                   <Label layoutX="65.0" layoutY="24.0" text="Naziv Predmeta">
                      <font>
                         <Font size="14.0" />
@@ -348,7 +348,7 @@
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <Button layoutX="122.0" layoutY="408.0" mnemonicParsing="false" style="-fx-background-color: #3e92ff;" text="Podnesi" textFill="WHITE">
+                  <Button fx:id="dodajPredBtn" layoutX="122.0" layoutY="408.0" mnemonicParsing="false" onMouseClicked="#podnesiPred" style="-fx-background-color: #3e92ff;" text="Podnesi" textFill="WHITE">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -367,8 +367,8 @@
                   </DropShadow>
                </effect>
                <children>
-                  <TextField layoutX="65.0" layoutY="47.0" prefHeight="25.0" prefWidth="184.0" />
-                  <TextField layoutX="65.0" layoutY="116.0" prefHeight="25.0" prefWidth="184.0" />
+                  <TextField fx:id="novaSkNaziv" layoutX="65.0" layoutY="47.0" prefHeight="25.0" prefWidth="184.0" />
+                  <TextField fx:id="novaSkGrad" layoutX="65.0" layoutY="116.0" prefHeight="25.0" prefWidth="184.0" />
                   <Label layoutX="65.0" layoutY="24.0" text="Naziv">
                      <font>
                         <Font size="14.0" />
@@ -379,7 +379,7 @@
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <Button layoutX="122.0" layoutY="408.0" mnemonicParsing="false" style="-fx-background-color: #3e92ff;" text="Podnesi" textFill="WHITE">
+                  <Button fx:id="dodajSkBtn" layoutX="122.0" layoutY="408.0" mnemonicParsing="false" onMouseClicked="#podnesiSk" style="-fx-background-color: #3e92ff;" text="Podnesi" textFill="WHITE">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -387,13 +387,13 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <TextField layoutX="65.0" layoutY="188.0" prefHeight="25.0" prefWidth="184.0" />
+                  <TextField fx:id="novaSkMjesto" layoutX="65.0" layoutY="188.0" prefHeight="25.0" prefWidth="184.0" />
                   <Label layoutX="65.0" layoutY="165.0" text="Mjesto">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <TextField layoutX="64.0" layoutY="258.0" prefHeight="25.0" prefWidth="184.0" />
+                  <TextField fx:id="novaSkDrzava" layoutX="64.0" layoutY="258.0" prefHeight="25.0" prefWidth="184.0" />
                   <Label layoutX="64.0" layoutY="235.0" text="Drzava">
                      <font>
                         <Font size="14.0" />

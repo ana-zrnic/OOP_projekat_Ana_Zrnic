@@ -18,13 +18,16 @@ public class HomepageController {
     private AnchorPane desniPane;
 
     @FXML
+    private Button dodajPredBtn;
+
+    @FXML
     private Button dodajProfBtn;
 
     @FXML
-    private Button dodajUcBtn;
+    private Button dodajSkBtn;
 
     @FXML
-    private Button dodajPredBtn;
+    private Button dodajUcBtn;
 
     @FXML
     private Group genderGrp;
@@ -63,34 +66,19 @@ public class HomepageController {
     private Label naslovObrasca;
 
     @FXML
+    private TextField novaSkDrzava;
+
+    @FXML
+    private TextField novaSkGrad;
+
+    @FXML
+    private TextField novaSkMjesto;
+
+    @FXML
+    private TextField novaSkNaziv;
+
+    @FXML
     private Button novaSkola;
-
-    @FXML
-    private Button noviPredmet;
-
-    @FXML
-    private TextField noviProfIme;
-
-    @FXML
-    private TextField noviProfPrezime;
-
-    @FXML
-    private TextField noviProfUsrnm;
-
-    @FXML
-    private TextField noviProfMail;
-
-    @FXML
-    private TextField noviUcIme;
-
-    @FXML
-    private TextField noviUcPrezime;
-
-    @FXML
-    private TextField noviUcUsrnm;
-
-    @FXML
-    private TextField noviUcMail;
 
     @FXML
     private TextField noviPredNaziv;
@@ -99,7 +87,34 @@ public class HomepageController {
     private TextField noviPredRaz;
 
     @FXML
+    private Button noviPredmet;
+
+    @FXML
+    private TextField noviProfIme;
+
+    @FXML
+    private TextField noviProfMail;
+
+    @FXML
+    private TextField noviProfPrezime;
+
+    @FXML
+    private TextField noviProfUsrnm;
+
+    @FXML
     private Button noviProfesor;
+
+    @FXML
+    private TextField noviUcIme;
+
+    @FXML
+    private TextField noviUcMail;
+
+    @FXML
+    private TextField noviUcPrezime;
+
+    @FXML
+    private TextField noviUcUsrnm;
 
     @FXML
     private Button noviUcenik;
@@ -151,7 +166,6 @@ public class HomepageController {
 
     @FXML
     private RadioButton z1;
-
 
 
     @FXML
@@ -330,9 +344,32 @@ public class HomepageController {
         }
         else
             naslovObrasca.setText("Podaci nisu dobri");
-
     }
 
+    @FXML
+    void podnesiSk(MouseEvent event){
+        boolean tacnostObrasca = true;
+        String naziv = novaSkNaziv.getText();
+        String grad = novaSkGrad.getText();
+        String mjesto = novaSkMjesto.getText();
+        String drzava = novaSkDrzava.getText();
+        if(naziv.equals("") || grad.equals("") || mjesto.equals("") || drzava.equals("")){
+            tacnostObrasca = false;
+        }
+
+        if(tacnostObrasca){
+            dbMetode.dodajSkolu(naziv,grad,mjesto,drzava);
+            Pane pane = (Pane) dodajSkBtn.getParent();
+            novaSkMjesto.clear();
+            novaSkNaziv.clear();
+            novaSkDrzava.clear();
+            novaSkGrad.clear();
+            pane.setVisible(false);
+            naslovObrasca.setText("Uspjesno ste kreirali novu skolu");
+        }
+        else
+            naslovObrasca.setText("Podaci nisu dobri");
+    }
 
 
 
