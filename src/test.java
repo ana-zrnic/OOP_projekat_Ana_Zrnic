@@ -4,7 +4,7 @@ import tabele.PristupniPodaci;
 
 public class test {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         dbConn konekcija = new dbConn();    //Preko objekta ili preko staticke met?
 
         dbMetode.kreirajPristupnePodatke(); //pozvati iz maina?
@@ -12,9 +12,8 @@ public class test {
 
         System.out.println(PristupniPodaci.getSviPodaci()); //db pull
 
-        dbMetode.dodajPristupnePodatke("mail9", "username9", "sifra9");
-        System.out.println(PristupniPodaci.getSviPodaci());
-
+        //dbMetode.dodajPristupnePodatke("mail9", "username9", "sifra9");
+        //System.out.println(PristupniPodaci.getSviPodaci());
 
         //PristupniPodaci test = new tabele.PristupniPodaci("bojan.mitrovic", "bojan.mitrovic@gmail.com");
 
@@ -22,5 +21,10 @@ public class test {
         //System.out.println(PristupniPodaci.getSviPodaci()); //db pull
 
         //dbMetode.azurirajPristupnePodatke(13, "bojan.mitrovic123");
+
+        /*for (int i = 13; i<=18; i++)
+            dbMetode.azurirajPristupnePodatke(i,PristupniPodaci.getSviPodaci().get(i).getSifra());
+        */
+
     }
 }

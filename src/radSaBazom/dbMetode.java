@@ -4,6 +4,8 @@ import tabele.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.security.*;
+import java.math.*;
 
 public class dbMetode extends dbConn{
 
@@ -13,8 +15,8 @@ public class dbMetode extends dbConn{
 
         try {
             ResultSet rs = stmt.executeQuery(QUERY);
-            while (rs.next()) {     //pogledati ovo za sifru jos!!! md5-kod?
-                new PristupniPodaci(rs.getString("korisnicko_ime"), rs.getString("email"), rs.getString("korisnicko_ime")+"123", rs.getInt("id"));
+            while (rs.next()) {     //posto je dekodiranje tesko najbolje je sacuvati hashovane sifre i onda porediti hashovane sifre
+                new PristupniPodaci(rs.getString("korisnicko_ime"), rs.getString("email"), rs.getString("sifra"), rs.getInt("id"));
                 //new PristupniPodaci(rs.getString("username"), rs.getString("email3"), rs.getString("sifra3")+"123", rs.getInt("id"));
 
             }
@@ -22,7 +24,7 @@ public class dbMetode extends dbConn{
             e.printStackTrace();
         }
     }
-    public static int dodajPristupnePodatke (String email, String korisnickoIme, String sifra){ //zajednicko za prof i ucenike
+    public static int dodajPristupnePodatke (String email, String korisnickoIme, String sifra) throws Exception { //zajednicko za prof i ucenike
         String QUERY = "INSERT INTO pristupni_podaci VALUES (DEFAULT, '"+korisnickoIme+"', '"+email+"', '"+sifra+"')";
         //String QUERY = "INSERT INTO baza2 VALUES (DEFAULT, '"+email+"', '"+korisnickoIme+"', '"+sifra+"')";
         int id = -1;
@@ -31,19 +33,25 @@ public class dbMetode extends dbConn{
             ResultSet rs = stmt.getGeneratedKeys();
             rs.next();
             id = rs.getInt(1);
-            new PristupniPodaci(korisnickoIme, email, sifra, id);
+            new PristupniPodaci(korisnickoIme, email, MD5(sifra), id);
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return id;
     }
-    public static void azurirajPristupnePodatke (int id, String sifra){ //ne uzimati id?
+    public static void azurirajPristupnePodatke (int id, String sifra) throws Exception { //ne uzimati id?
+        sifra = MD5(sifra);
         String QUERY = "UPDATE pristupni_podaci SET sifra = '"+ sifra + "' WHERE id = "+id;
         try {
             stmt.executeUpdate(QUERY);
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+    public static String MD5(String s) throws Exception {//ovaj metod je kopiran sa interneta
+        MessageDigest m=MessageDigest.getInstance("MD5");
+        m.update(s.getBytes(),0,s.length());
+        return new BigInteger(1,m.digest()).toString(16);
     }
 
     public static void kreirajProfesore (){ //preload prilikom ucitavanja?
@@ -57,7 +65,6 @@ public class dbMetode extends dbConn{
             e.printStackTrace();
         }
     }
-
     public static void dodajProfesora (String ime, String prezime, int pol, int id){
         String QUERY = "INSERT INTO profesor VALUES (DEFAULT, '"+ime+"', '"+prezime+"', '"+pol+"', '"+id+"')";
         try {
