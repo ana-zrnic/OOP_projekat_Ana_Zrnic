@@ -13,7 +13,7 @@ import java.io.IOException;
 public class Main extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("resources/homepage-view.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("resources/login-view.fxml"));
         Scene scene = new Scene(root);
         stage.setTitle("E-dnevnik");
         stage.setScene(scene);

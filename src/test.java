@@ -25,6 +25,7 @@ public class test {
         /*for (int i = 13; i<=18; i++)
             dbMetode.azurirajPristupnePodatke(i,PristupniPodaci.getSviPodaci().get(i).getSifra());
         */
+        dbMetode.azurirajPristupnePodatke(19,PristupniPodaci.getSviPodaci().get(19).getSifra());
 
     }
 }

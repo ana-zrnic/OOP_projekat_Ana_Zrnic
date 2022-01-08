@@ -22,7 +22,7 @@ public class Ucenik {
         sviUcenici.put(id, this);
     }
 
-    public Map<Integer, Ucenik> getSviUcenici(){
+    public static Map<Integer, Ucenik> getSviUcenici(){
         return sviUcenici;
     }
 }
