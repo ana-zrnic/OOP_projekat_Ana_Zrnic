@@ -15,6 +15,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import tabele.PristupniPodaci;
+import radSaBazom.dbMetode;
 
 import java.io.IOException;
 
@@ -47,9 +48,10 @@ public class LoginController {
     private Parent root;
 
     @FXML
-    void login(MouseEvent event) throws IOException {
+    void login(MouseEvent event) throws Exception {
+        //login sa usernamom? ako umjesto email stavimo login onda lako mozemo porediti sifre bez petlje
         String email = emailInpt.getText();
-        String pass = passInpt.getText();
+        String pass = dbMetode.MD5(passInpt.getText()); //poredi sifre hashovane u md5 hashu
 
         System.out.println(email+" "+pass);
 
