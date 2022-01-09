@@ -145,5 +145,24 @@ public class dbMetode extends dbConn{
             e.printStackTrace();
         }
     }
+    public static void kreirajPredmeteUSkoli(){
+        String QUERY = "SELECT id, predmet_id, skola_id, profesor_id FROM predmet_u_skoli";
+        try {
+            ResultSet rs = stmt.executeQuery(QUERY);
+            while (rs.next()) {
+                Predmet predmet = Predmet.getSviPredmeti().get(rs.getInt("predmet_id"));
+                Skola skola = Skola.getSveSkole().get(rs.getInt("skola_id"));
+                Profesor profesor = Profesor.getSviProfesori().get(rs.getInt("profesor_id"));
+                new PredmetUskoli(predmet, skola, profesor, rs.getInt("id"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    /*public static void dodajMojuSkolu(){
+
+    }*/
+
+
 
 }
