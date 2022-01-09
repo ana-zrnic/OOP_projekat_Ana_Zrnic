@@ -4,19 +4,20 @@ import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Group;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
+import javafx.geometry.Pos;
+import javafx.scene.*;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
+import javafx.scene.text.Font;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import radSaBazom.dbMetode;
 import tabele.PristupniPodaci;
 import tabele.Profesor;
+import tabele.Ucenik;
 
 import java.io.IOException;
 import java.net.URL;
@@ -138,6 +139,9 @@ public class HomepageController{
     private Button pocetna;
 
     @FXML
+    private Button pocetna1;
+
+    @FXML
     private Pane predObrazac;
 
     @FXML
@@ -249,20 +253,81 @@ public class HomepageController{
     void prikaziSveProfesore(MouseEvent event) {
         desniPane.setVisible(false);
         prikaziSve.setVisible(true);
+        pocetna1.setVisible(true);
         int Yodstojanje = 0;
         for(Profesor p : Profesor.getSviProfesori().values()){
-           ucitajListu(Integer.toString(p.getId()), Yodstojanje);
+           ucitajListu(p.getId(), Yodstojanje, 0);
             Yodstojanje+=215;
         }
     }
-    private void ucitajListu (String id, int Yodstojanje){
+    private void ucitajListu (int id, int Yodstojanje, int tipListe){
         Pane listaPane = new Pane();
-        listaPane.setId(id);
+        listaPane.setId(Integer.toString(id));
         listaPane.setPrefHeight(200);
         listaPane.setPrefWidth(700);
         listaPane.setLayoutX(25);
         listaPane.setLayoutY(15+Yodstojanje);
         listaPane.setStyle("-fx-background-color: #dfe8f7;");
+
+        Image image;
+        Label label = new Label();
+        Label info = new Label();
+
+        switch(tipListe) {
+            case 0:
+                if(Profesor.getSviProfesori().get(id).getPol() == 1)
+                    image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("resources/img/teacher-m.png")));
+                else
+                    image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("resources/img/teacher-f.png")));
+                label.setText(Profesor.getSviProfesori().get(id).getIme() + " " + Profesor.getSviProfesori().get(id).getPrezime());
+
+                break;
+            case 1:
+                if(Ucenik.getSviUcenici().get(id).getPol() == 1)
+                    image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("resources/img/student-m.png")));
+                else
+                    image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("resources/img/student-f.png")));
+                label.setText(Ucenik.getSviUcenici().get(id).getIme() + " " + Ucenik.getSviUcenici().get(id).getPrezime());
+                break;
+            /*case 2:
+                // code block
+                break;
+            case 3:
+                // code block
+                break;*/
+            default:
+                System.out.println("nije dobar tip liste");
+                image = null;
+        }
+
+        ImageView imageView = new ImageView(image);
+        imageView.setCache(true);
+        imageView.setCacheHint(CacheHint.QUALITY);
+        imageView.setFitHeight(128);
+        imageView.setFitWidth(138);
+        imageView.setLayoutX(33);
+        imageView.setLayoutY(14);
+        imageView.setPickOnBounds(true);
+        imageView.setPreserveRatio(true);
+
+        label.setAlignment(Pos.CENTER);
+        label.setTextAlignment(TextAlignment.CENTER);
+        label.setLayoutX(25);
+        label.setLayoutY(154);
+        label.setPrefWidth(138);
+        label.setFont(Font.font(15));
+
+        info.setLayoutX(188);
+        info.setAlignment(Pos.TOP_LEFT);
+        info.setLayoutY(17);
+        info.setPrefHeight(167);
+        info.setPrefWidth(490);
+        info.setFont(Font.font(15));
+        info.setText("test");
+
+        listaPane.getChildren().add(info);
+        listaPane.getChildren().add(imageView);
+        listaPane.getChildren().add(label);
         prikaziSvePane.getChildren().add(listaPane);
     }
 
@@ -273,21 +338,38 @@ public class HomepageController{
 
     @FXML
     void prikaziSveUcenike(MouseEvent event) {
-
+        desniPane.setVisible(false);
+        prikaziSve.setVisible(true);
+        pocetna1.setVisible(true);
+        int Yodstojanje = 0;
+        for(Profesor p : Profesor.getSviProfesori().values()){
+            ucitajListu(p.getId(), Yodstojanje, 1);
+            Yodstojanje+=215;
+        }
     }
 
     @FXML
     void prikaziPocetnu(MouseEvent event) {
         Pane[] obrasci = {profObrazac, predObrazac, ucObrazac, skObrazac};
         Button btn = (Button) event.getSource();
-        Pane pane = (Pane) btn.getParent();
+        Pane pane = obrazac;
         for (Pane ch : obrasci)
             if(ch.isVisible())
                 ch.setVisible(false);
         pane.setVisible(false);
         desniPane.setVisible(true);
+        btn.setVisible(false);
     }
 
+    @FXML
+    void prikaziPocetnu1(MouseEvent event) {
+        Button btn = (Button) event.getSource();
+        for (Node ch : prikaziSvePane.getChildren())
+            ch.setVisible(false);
+        prikaziSve.setVisible(false);
+        desniPane.setVisible(true);
+        btn.setVisible(false);
+    }
 
 
     @FXML
@@ -297,6 +379,7 @@ public class HomepageController{
         obrazac.setVisible(true);
         naslovObrasca.setText("Dodaj profesora");
         profObrazac.setVisible(true);
+        pocetna.setVisible(true);
     }
 
     @FXML
@@ -305,6 +388,7 @@ public class HomepageController{
         obrazac.setVisible(true);
         naslovObrasca.setText("Kreiraj skolu");
         skObrazac.setVisible(true);
+        pocetna.setVisible(true);
     }
 
     @FXML
@@ -313,6 +397,7 @@ public class HomepageController{
         obrazac.setVisible(true);
         naslovObrasca.setText("Dodaj ucenika");
         ucObrazac.setVisible(true);
+        pocetna.setVisible(true);
     }
 
     @FXML
@@ -321,6 +406,7 @@ public class HomepageController{
         obrazac.setVisible(true);
         naslovObrasca.setText("Kreiraj predmet");
         predObrazac.setVisible(true);
+        pocetna.setVisible(true);
     }
 
     @FXML
