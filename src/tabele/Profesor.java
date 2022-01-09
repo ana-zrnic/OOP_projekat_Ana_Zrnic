@@ -44,6 +44,17 @@ public class Profesor {
     public PristupniPodaci getPristupniPodaci(){
         return pristupniPodaci;
     }
+
+    @Override
+    public String toString() {
+        return "Profesor{" +
+                "pristupniPodaci=" + pristupniPodaci +
+                ", ime='" + ime + '\'' +
+                ", prezime='" + prezime + '\'' +
+                ", pol=" + pol +
+                ", id=" + id +
+                '}';
+    }
 }
 
 

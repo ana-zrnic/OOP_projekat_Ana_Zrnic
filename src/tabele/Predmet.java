@@ -28,4 +28,29 @@ public class Predmet {
                     return true;
         return false;
     }
+
+    public String getNaziv() {
+        return naziv;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public int getRazred() {
+        return razred;
+    }
+
+    public static Map<Integer, Predmet> getSviPredmeti() {
+        return sviPredmeti;
+    }
+
+    @Override
+    public String toString() {
+        return "Predmet{" +
+                "naziv='" + naziv + '\'' +
+                ", razred=" + razred +
+                ", id=" + id +
+                '}';
+    }
 }
