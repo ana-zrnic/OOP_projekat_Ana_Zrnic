@@ -420,7 +420,7 @@
       </Pane>
       <ScrollPane fx:id="prikaziSve" layoutX="333.0" pannable="true" prefHeight="700.0" prefWidth="766.4" visible="false">
         <content>
-          <AnchorPane fx:id="prikaziSvePane" minHeight="0.0" minWidth="0.0" prefHeight="650.0" prefWidth="760.0">
+          <AnchorPane fx:id="prikaziSvePane" minHeight="0.0" minWidth="0.0" prefWidth="760.0">
                <children>
                   <Label layoutX="38.0" layoutY="659.0" text="nesto" />
                   <Pane layoutX="25.0" layoutY="15.0" prefHeight="200.0" prefWidth="700.0" style="-fx-background-color: #dfe8f7;" visible="false">

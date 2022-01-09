@@ -1,9 +1,7 @@
 package main;
 
-import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.*;
 import javafx.scene.control.*;
@@ -15,16 +13,9 @@ import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import radSaBazom.dbMetode;
-import tabele.PristupniPodaci;
-import tabele.Profesor;
-import tabele.Ucenik;
-
+import tabele.*;
 import java.io.IOException;
-import java.net.URL;
-import java.util.Collection;
-import java.util.Locale;
 import java.util.Objects;
-import java.util.ResourceBundle;
 
 public class HomepageController{
     @FXML
@@ -246,7 +237,14 @@ public class HomepageController{
 
     @FXML
     void prikaziSvePredmete(MouseEvent event) {
-
+        desniPane.setVisible(false);
+        prikaziSve.setVisible(true);
+        pocetna1.setVisible(true);
+        int Yodstojanje = 0;
+        for(Predmet p : Predmet.getSviPredmeti().values()){
+            ucitajListu(p.getId(), Yodstojanje, 2);
+            Yodstojanje+=215;
+        }
     }
 
     @FXML
@@ -289,12 +287,14 @@ public class HomepageController{
                     image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("resources/img/student-f.png")));
                 label.setText(Ucenik.getSviUcenici().get(id).getIme() + " " + Ucenik.getSviUcenici().get(id).getPrezime());
                 break;
-            /*case 2:
-                // code block
+            case 2:
+                image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("resources/img/add-new-sub.png")));
+                label.setText(Predmet.getSviPredmeti().get(id).getNaziv());
                 break;
             case 3:
-                // code block
-                break;*/
+                image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("resources/img/add-new-sch.png")));
+                label.setText(Skola.getSveSkole().get(id).getNaziv());
+                break;
             default:
                 System.out.println("nije dobar tip liste");
                 image = null;
@@ -333,7 +333,14 @@ public class HomepageController{
 
     @FXML
     void prikaziSveSkole(MouseEvent event) {
-
+        desniPane.setVisible(false);
+        prikaziSve.setVisible(true);
+        pocetna1.setVisible(true);
+        int Yodstojanje = 0;
+        for(Skola s : Skola.getSveSkole().values()){
+            ucitajListu(s.getId(), Yodstojanje, 3);
+            Yodstojanje+=215;
+        }
     }
 
     @FXML
@@ -342,8 +349,8 @@ public class HomepageController{
         prikaziSve.setVisible(true);
         pocetna1.setVisible(true);
         int Yodstojanje = 0;
-        for(Profesor p : Profesor.getSviProfesori().values()){
-            ucitajListu(p.getId(), Yodstojanje, 1);
+        for(Ucenik u : Ucenik.getSviUcenici().values()){
+            ucitajListu(u.getId(), Yodstojanje, 1);
             Yodstojanje+=215;
         }
     }
