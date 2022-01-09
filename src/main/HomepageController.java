@@ -16,6 +16,7 @@ import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import radSaBazom.dbMetode;
 import tabele.PristupniPodaci;
+import tabele.Profesor;
 
 import java.io.IOException;
 import java.net.URL;
@@ -164,9 +165,6 @@ public class HomepageController{
     private Button sviUcenici;
 
     @FXML
-    private Label test;
-
-    @FXML
     private Label test2;
 
     @FXML
@@ -180,6 +178,12 @@ public class HomepageController{
 
     @FXML
     private Button logoutBtn;
+
+    @FXML
+    private ScrollPane prikaziSve;
+
+    @FXML
+    private AnchorPane prikaziSvePane;
 
     @FXML
     private Stage stage;
@@ -237,6 +241,42 @@ public class HomepageController{
     }
 
     @FXML
+    void prikaziSvePredmete(MouseEvent event) {
+
+    }
+
+    @FXML
+    void prikaziSveProfesore(MouseEvent event) {
+        desniPane.setVisible(false);
+        prikaziSve.setVisible(true);
+        int Yodstojanje = 0;
+        for(Profesor p : Profesor.getSviProfesori().values()){
+           ucitajListu(Integer.toString(p.getId()), Yodstojanje);
+            Yodstojanje+=215;
+        }
+    }
+    private void ucitajListu (String id, int Yodstojanje){
+        Pane listaPane = new Pane();
+        listaPane.setId(id);
+        listaPane.setPrefHeight(200);
+        listaPane.setPrefWidth(700);
+        listaPane.setLayoutX(25);
+        listaPane.setLayoutY(15+Yodstojanje);
+        listaPane.setStyle("-fx-background-color: #dfe8f7;");
+        prikaziSvePane.getChildren().add(listaPane);
+    }
+
+    @FXML
+    void prikaziSveSkole(MouseEvent event) {
+
+    }
+
+    @FXML
+    void prikaziSveUcenike(MouseEvent event) {
+
+    }
+
+    @FXML
     void prikaziPocetnu(MouseEvent event) {
         Pane[] obrasci = {profObrazac, predObrazac, ucObrazac, skObrazac};
         Button btn = (Button) event.getSource();
@@ -248,10 +288,7 @@ public class HomepageController{
         desniPane.setVisible(true);
     }
 
-    @FXML
-    void prikaziSveProfesore(MouseEvent event) {
-            test.setText("prikazi sve profesore");
-    }
+
 
     @FXML
     void dodajProfesora(MouseEvent event) {
@@ -309,7 +346,6 @@ public class HomepageController{
         if(tacnostObrasca){
             int id = dbMetode.dodajPristupnePodatke(email,korisnickoIme,sifra);
             dbMetode.dodajProfesora(ime, prezime, pol, id);
-            //Button btn = (Button) event.getSource();
             Pane pane = (Pane) dodajProfBtn.getParent();
             noviProfIme.clear();
             noviProfPrezime.clear();
