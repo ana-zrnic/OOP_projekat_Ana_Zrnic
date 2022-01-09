@@ -220,7 +220,6 @@
       </SplitPane>
       <Pane fx:id="obrazac" layoutX="333.0" prefHeight="700.0" prefWidth="766.4" visible="false">
          <children>
-            <Label fx:id="test2" layoutX="35.0" layoutY="665.0" text="dodati polje email kod prof i ucenika" />
             <Label fx:id="naslovObrasca" alignment="CENTER" layoutX="115.0" layoutY="125.0" prefHeight="35.0" prefWidth="537.0" text="Kreiraj" textFill="#303030">
                <font>
                   <Font size="24.0" />
@@ -422,7 +421,6 @@
         <content>
           <AnchorPane fx:id="prikaziSvePane" minHeight="0.0" minWidth="0.0" prefWidth="760.0">
                <children>
-                  <Label layoutX="38.0" layoutY="659.0" text="nesto" />
                   <Pane layoutX="25.0" layoutY="15.0" prefHeight="200.0" prefWidth="700.0" style="-fx-background-color: #dfe8f7;" visible="false">
                      <children>
                         <ImageView cache="true" cacheHint="QUALITY" fitHeight="128.0" fitWidth="138.0" layoutX="33.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">

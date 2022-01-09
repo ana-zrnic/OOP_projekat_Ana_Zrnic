@@ -15,7 +15,9 @@ import javafx.stage.Stage;
 import radSaBazom.dbMetode;
 import tabele.*;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Objects;
+import java.util.Set;
 
 public class HomepageController{
     @FXML
@@ -160,9 +162,6 @@ public class HomepageController{
     private Button sviUcenici;
 
     @FXML
-    private Label test2;
-
-    @FXML
     private Pane ucObrazac;
 
     @FXML
@@ -227,12 +226,48 @@ public class HomepageController{
 
     @FXML
     void prikaziMojePredmete(MouseEvent event) {
-
+        desniPane.setVisible(false);
+        prikaziSve.setVisible(true);
+        pocetna1.setVisible(true);
+        int Yodstojanje = 0;
+        for(Predmet p : vratiListuMojihPredmeta(profileUsrnm.getText())){
+            ucitajListu(p.getId(), Yodstojanje, 2);
+            Yodstojanje+=215;
+        }
+    }
+    private ArrayList<Predmet> vratiListuMojihPredmeta(String usrnm){ //napraviti da bude id?
+        ArrayList<Predmet> temp = new ArrayList<>();
+        for(PredmetUskoli p : PredmetUskoli.getSviPredmetiSkole().values())
+            if(p.getProfesor().getPristupniPodaci().getKorisnickoIme().equals(usrnm))
+                temp.add(p.getPredmet());
+        return temp;
     }
 
     @FXML
     void prikaziMojeSkole(MouseEvent event) {
-
+        desniPane.setVisible(false);
+        prikaziSve.setVisible(true);
+        pocetna1.setVisible(true);
+        int Yodstojanje = 0;
+        for(Skola s : vratiListuMojihSkola(profileUsrnm.getText())){
+            ucitajListu(s.getId(), Yodstojanje, 3);
+            Yodstojanje+=215;
+        }
+    }
+    private ArrayList<Skola> vratiListuMojihSkola(String usrnm){ //napraviti da bude id?
+        ArrayList<Skola> temp = new ArrayList<>();
+        for(PredmetUskoli p : PredmetUskoli.getSviPredmetiSkole().values())
+            if(p.getProfesor().getPristupniPodaci().getKorisnickoIme().equals(usrnm))
+                if(!skolaPostoji(temp, p.getSkola()))
+                    temp.add(p.getSkola());
+        return temp;
+    }
+    private boolean skolaPostoji(ArrayList<Skola> lista, Skola skola){
+        if(lista!=null)
+            for (Skola s : lista)
+                if (s.equals(skola))
+                    return true;
+        return false;
     }
 
     @FXML
@@ -289,11 +324,11 @@ public class HomepageController{
                 break;
             case 2:
                 image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("resources/img/add-new-sub.png")));
-                label.setText(Predmet.getSviPredmeti().get(id).getNaziv());
+                label.setText(Predmet.getSviPredmeti().get(id).getNaziv()+" "+ Predmet.getSviPredmeti().get(id).getRazred());
                 break;
             case 3:
                 image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("resources/img/add-new-sch.png")));
-                label.setText(Skola.getSveSkole().get(id).getNaziv());
+                label.setText(Skola.getSveSkole().get(id).getNaziv() + " " +Skola.getSveSkole().get(id).getMjesto());
                 break;
             default:
                 System.out.println("nije dobar tip liste");
