@@ -30,4 +30,39 @@ public class Skola {
                     return true;
         return false;
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getNaziv() {
+        return naziv;
+    }
+
+    public String getDrzava() {
+        return drzava;
+    }
+
+    public String getGrad() {
+        return grad;
+    }
+
+    public String getMjesto() {
+        return mjesto;
+    }
+
+    public static Map<Integer, Skola> getSveSkole() {
+        return sveSkole;
+    }
+
+    @Override
+    public String toString() {
+        return "Skola{" +
+                "naziv='" + naziv + '\'' +
+                ", grad='" + grad + '\'' +
+                ", mjesto='" + mjesto + '\'' +
+                ", drzava='" + drzava + '\'' +
+                ", id=" + id +
+                '}';
+    }
 }
