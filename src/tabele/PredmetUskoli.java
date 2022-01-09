@@ -6,7 +6,7 @@ import java.util.Map;
 
 public class PredmetUskoli {
     //private static ArrayList<PredmetUskoli> sviPredmetiSkole = new ArrayList<>();
-    private static Map<Integer, ArrayList<Object>> sviPredmetiSkole = new Hashtable<>();
+    private static Map<Integer, PredmetUskoli> sviPredmetiSkole = new Hashtable<>();
     private Predmet predmet;
     private Skola skola;
     private Profesor profesor;
@@ -18,18 +18,26 @@ public class PredmetUskoli {
         this.profesor = profesor;
         this.id = id;
 
-        sviPredmetiSkole.put(id,new ArrayList<Object>()
-            {
-                {
-                    add(predmet);
-                    add(skola);
-                    add(profesor);
-                }
-            }
-        );
+        sviPredmetiSkole.put(id, this);
     }
 
-    public static Map<Integer, ArrayList<Object>> getSviPredmetiSkole() {
+    public static Map<Integer, PredmetUskoli> getSviPredmetiSkole() {
         return sviPredmetiSkole;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public Profesor getProfesor() {
+        return profesor;
+    }
+
+    public Predmet getPredmet() {
+        return predmet;
+    }
+
+    public Skola getSkola() {
+        return skola;
     }
 }
