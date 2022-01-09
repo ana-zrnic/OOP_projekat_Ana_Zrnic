@@ -25,4 +25,24 @@ public class Ucenik {
     public static Map<Integer, Ucenik> getSviUcenici(){
         return sviUcenici;
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getPrezime() {
+        return prezime;
+    }
+
+    public String getIme() {
+        return ime;
+    }
+
+    public int getPol() {
+        return pol;
+    }
+
+    public PristupniPodaci getPristupniPodaci() {
+        return pristupniPodaci;
+    }
 }
