@@ -14,7 +14,12 @@ import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import radSaBazom.dbMetode;
 import tabele.*;
+
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.beans.EventHandler;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Set;
@@ -180,9 +185,44 @@ public class HomepageController{
     private AnchorPane prikaziSvePane;
 
     @FXML
+    private Button novaOcjena;
+
+    @FXML
+    private Button noviIzostanak;
+
+    @FXML
+    private Button sviIzostanci;
+
+    @FXML
+    private Pane zaposliSe;
+    @FXML
+    private Button dodajNoviPosao;
+    @FXML
+    private ChoiceBox izaberiSk;
+    @FXML
+    private ChoiceBox izaberiPr;
+
+    @FXML
+    private Pane ocjObrazac;
+    @FXML
+    private Button dodajOcjnBtn;
+    @FXML
+    private MenuButton ocjSkola;
+    @FXML
+    private MenuButton ocjPredmet;
+    @FXML
+    private MenuButton ocjUcenik;
+    @FXML
+    private DatePicker ocjDatum;
+    @FXML
+    private ChoiceBox ocjOcjena;
+
+    @FXML
     private Stage stage;
     private Scene scene;
     private Parent root;
+
+    private int idUlogovanog;
 
 
     @FXML
@@ -202,6 +242,7 @@ public class HomepageController{
     public void setInfo(User u) {
         //User u = (User) primaryStage.getUserData();
         profileUsrnm.setText(u.getKorisnickoIme());
+        idUlogovanog = pronadjiIdUlogovanog(u.getKorisnickoIme());
         if(u.getPol()==1){
             Image image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("resources/img/teacher-m.png")));
             profilePctr.setImage(image);
@@ -210,6 +251,12 @@ public class HomepageController{
             Image image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("resources/img/teacher-f.png")));
             profilePctr.setImage(image);
         }
+    }
+    private int pronadjiIdUlogovanog(String korisnickoIme){
+        for(Profesor p : Profesor.getSviProfesori().values())
+            if(p.getPristupniPodaci().getKorisnickoIme().equals(korisnickoIme))
+                return p.getId();
+        return -1;
     }
 
     @FXML
@@ -230,15 +277,17 @@ public class HomepageController{
         prikaziSve.setVisible(true);
         pocetna1.setVisible(true);
         int Yodstojanje = 0;
-        for(Predmet p : vratiListuMojihPredmeta(profileUsrnm.getText())){
+        for(Predmet p : vratiListuMojihPredmeta(idUlogovanog, true)){
             ucitajListu(p.getId(), Yodstojanje, 2);
             Yodstojanje+=215;
         }
     }
-    private ArrayList<Predmet> vratiListuMojihPredmeta(String usrnm){ //napraviti da bude id?
+    private ArrayList<Predmet> vratiListuMojihPredmeta(int id, boolean flag){ //napraviti da bude id?
         ArrayList<Predmet> temp = new ArrayList<>();
         for(PredmetUskoli p : PredmetUskoli.getSviPredmetiSkole().values())
-            if(p.getProfesor().getPristupniPodaci().getKorisnickoIme().equals(usrnm))
+            if(p.getProfesor().getId()==id && flag)
+                temp.add(p.getPredmet());
+            else if(p.getProfesor().getId()!=id && !flag)
                 temp.add(p.getPredmet());
         return temp;
     }
@@ -249,16 +298,16 @@ public class HomepageController{
         prikaziSve.setVisible(true);
         pocetna1.setVisible(true);
         int Yodstojanje = 0;
-        for(Skola s : vratiListuMojihSkola(profileUsrnm.getText())){
+        for(Skola s : vratiListuMojihSkola(idUlogovanog)){
             ucitajListu(s.getId(), Yodstojanje, 3);
             Yodstojanje+=215;
         }
     }
-    private ArrayList<Skola> vratiListuMojihSkola(String usrnm){ //napraviti da bude id?
+    private ArrayList<Skola> vratiListuMojihSkola(int id){ //napraviti da bude id?
         ArrayList<Skola> temp = new ArrayList<>();
         for(PredmetUskoli p : PredmetUskoli.getSviPredmetiSkole().values())
-            if(p.getProfesor().getPristupniPodaci().getKorisnickoIme().equals(usrnm))
-                if(!skolaPostoji(temp, p.getSkola()))
+            if(p.getProfesor().getId()==id)
+                if(!skolaPostoji(temp, p.getSkola()))   // da ovog nema vratio bi vise puta istu skolu u kojoj ima vise predmeta
                     temp.add(p.getSkola());
         return temp;
     }
@@ -268,18 +317,6 @@ public class HomepageController{
                 if (s.equals(skola))
                     return true;
         return false;
-    }
-
-    @FXML
-    void prikaziSvePredmete(MouseEvent event) {
-        desniPane.setVisible(false);
-        prikaziSve.setVisible(true);
-        pocetna1.setVisible(true);
-        int Yodstojanje = 0;
-        for(Predmet p : Predmet.getSviPredmeti().values()){
-            ucitajListu(p.getId(), Yodstojanje, 2);
-            Yodstojanje+=215;
-        }
     }
 
     @FXML
@@ -325,6 +362,7 @@ public class HomepageController{
             case 2:
                 image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("resources/img/add-new-sub.png")));
                 label.setText(Predmet.getSviPredmeti().get(id).getNaziv()+" "+ Predmet.getSviPredmeti().get(id).getRazred());
+                //info.setText("Skola: "+skolaPredmeta());
                 break;
             case 3:
                 image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("resources/img/add-new-sch.png")));
@@ -358,7 +396,7 @@ public class HomepageController{
         info.setPrefHeight(167);
         info.setPrefWidth(490);
         info.setFont(Font.font(15));
-        info.setText("test");
+
 
         listaPane.getChildren().add(info);
         listaPane.getChildren().add(imageView);
@@ -367,16 +405,24 @@ public class HomepageController{
     }
 
     @FXML
-    void prikaziSveSkole(MouseEvent event) {
+    void PosaoObrazac(MouseEvent event) {
         desniPane.setVisible(false);
-        prikaziSve.setVisible(true);
-        pocetna1.setVisible(true);
-        int Yodstojanje = 0;
+        obrazac.setVisible(true);
+        naslovObrasca.setText("Izaberite novi posao");
+        zaposliSe.setVisible(true);
+        pocetna.setVisible(true);
+        izaberiSk.getItems().clear();
+        izaberiPr.getItems().clear();
         for(Skola s : Skola.getSveSkole().values()){
-            ucitajListu(s.getId(), Yodstojanje, 3);
-            Yodstojanje+=215;
+            //MenuItem item = new MenuItem(s.getNaziv()+" "+s.getMjesto());
+             izaberiSk.getItems().add(s.getNaziv()+" "+s.getMjesto());
+        }
+        for(Predmet p : Predmet.getSviPredmeti().values()){
+            //MenuItem item = new MenuItem();
+            izaberiPr.getItems().add(p.getNaziv()+" "+p.getRazred());
         }
     }
+
 
     @FXML
     void prikaziSveUcenike(MouseEvent event) {
@@ -392,7 +438,7 @@ public class HomepageController{
 
     @FXML
     void prikaziPocetnu(MouseEvent event) {
-        Pane[] obrasci = {profObrazac, predObrazac, ucObrazac, skObrazac};
+        Pane[] obrasci = {profObrazac, predObrazac, ucObrazac, skObrazac,zaposliSe,ocjObrazac};
         Button btn = (Button) event.getSource();
         Pane pane = obrazac;
         for (Pane ch : obrasci)
@@ -579,6 +625,252 @@ public class HomepageController{
         }
         else
             naslovObrasca.setText("Podaci nisu dobri");
+    }
+
+    @FXML
+    void dodajOcjenu(MouseEvent event){
+        //iz menu item uzeti objekat skole od izabranog teksta
+        //uceniciSkole(Skola.getSveSkole().get(2)); //ovdje proslijediti skolu koja je selektovana
+        //iz te liste vratiti ucenike koji su u selektovanom predmetu
+        desniPane.setVisible(false);
+        obrazac.setVisible(true);
+        naslovObrasca.setText("Unesite ocjenu");
+        ocjObrazac.setVisible(true);
+        pocetna.setVisible(true);
+        ocjSkola.getItems().clear();
+        ocjSkola.setText("-");
+
+        //ocjPredmet.getItems().clear();
+        ocjPredmet.setText("-");
+        ocjPredmet.setDisable(true);
+        //ocjUcenik.getItems().clear();
+        ocjUcenik.setText("-");
+        ocjUcenik.setDisable(true);
+        ocjOcjena.getItems().clear();
+        ocjOcjena.setDisable(true);
+        ocjDatum.setValue(null);
+        ocjDatum.setDisable(true);
+
+        for(int i=1; i<=5; i++)
+            ocjOcjena.getItems().add(i+"");
+
+        for(Skola s : vratiListuMojihSkola(idUlogovanog))
+            ocjSkola.getItems().add(new MenuItem(s.getNaziv()+", "+s.getMjesto()));
+        for(MenuItem i : ocjSkola.getItems())
+            i.setOnAction(eventSk -> {                              //
+                ocjSkola.setText(i.getText());
+                ocjPredmet.setText("-");
+                ocjPredmet.getItems().clear();
+                ocjPredmet.setDisable(false);
+                ocjUcenik.setDisable(true);
+                ocjUcenik.setText("-");
+                ocjOcjena.setDisable(true);
+                ocjDatum.setDisable(true);
+                for(Predmet p : predmetiSkole(vratiSkolu(ocjSkola.getText())))
+                    ocjPredmet.getItems().add(new MenuItem(p.getNaziv()+", "+p.getRazred()));
+                for(MenuItem j : ocjPredmet.getItems())             //
+                    j.setOnAction(eventPr -> {
+                        ocjPredmet.setText(j.getText());
+                        ocjUcenik.setText("-");
+                        ocjUcenik.getItems().clear();
+                        ocjUcenik.setDisable(false);
+                        ocjOcjena.setDisable(true);
+                        ocjDatum.setDisable(true);
+                        for(Ucenik u : uceniciPredmeta(vratiPredmet(ocjPredmet.getText()), uceniciSkole(vratiSkolu(ocjSkola.getText())))){
+                            ocjUcenik.getItems().add(new MenuItem(u.getIme()+" "+u.getPrezime()));
+                        }
+                        for(MenuItem k : ocjUcenik.getItems())      //
+                            k.setOnAction(eventUc -> {
+                                ocjUcenik.setText(k.getText());
+                                ocjOcjena.setDisable(false);
+                                ocjDatum.setDisable(false);
+                            });
+                    });
+            });
+    }
+    private ArrayList<Predmet> predmetiSkole (Skola skola){
+        ArrayList<Predmet> temp = new ArrayList<>();
+        for(PredmetUskoli ps : PredmetUskoli.getSviPredmetiSkole().values())
+            if(vratiListuMojihPredmeta(idUlogovanog,true).contains(ps.getPredmet()) && ps.getSkola()==skola && ps.getProfesor().getId()==idUlogovanog)
+                temp.add(ps.getPredmet());
+                //System.out.println();
+        return temp;
+    }
+    private Skola vratiSkolu(String naziv){
+        for (Skola s : Skola.getSveSkole().values())
+            if (s.getNaziv().equals(naziv.split(", ")[0])
+                    && s.getMjesto().equals(naziv.split(", ")[1]))
+                return s;
+        return null;
+    }
+    private Predmet vratiPredmet(String naziv){
+        for (Predmet p : Predmet.getSviPredmeti().values())
+            if (p.getNaziv().equals(naziv.split(", ")[0])
+                    && p.getRazred()==Integer.parseInt(naziv.split(", ")[1]))
+                return p;
+        return null;
+    }
+    private ArrayList<ArrayList<Ucenik>> uceniciSkole(Skola skola){
+        ArrayList<Ucenik> temp = new ArrayList<>();
+        ArrayList<Ucenik> uceniciDrugihSkola = new ArrayList<>();
+        ArrayList<Ucenik> uceniciBezSkole = new ArrayList<>();
+        for(Ocjena o : Ocjena.getSveOcjene().values())
+            if(!temp.contains(o.getUcenik())){
+                if(o.getPredmet().getSkola()==skola){
+                    temp.add(o.getUcenik());
+                    System.out.println("ucenik skole "+skola.getNaziv()+skola.getMjesto()+", "+o.getUcenik().getIme()+" "+o.getUcenik().getPrezime());
+                }
+                else{
+                    uceniciDrugihSkola.add(o.getUcenik());
+                }
+            }
+        for (Izostanci i : Izostanci.getSviIzostanci().values())
+            if(!temp.contains(i.getUcenik())){
+                if(i.getPredmet().getSkola()==skola){
+                    temp.add(i.getUcenik());
+                    System.out.println("ucenik skole "+skola.getNaziv()+skola.getMjesto()+", "+i.getUcenik().getIme()+" "+i.getUcenik().getPrezime());
+                }
+                else{
+                    uceniciDrugihSkola.add(i.getUcenik());
+                }
+            }
+        for(Ucenik u : Ucenik.getSviUcenici().values())
+            if(!temp.contains(u) && !uceniciDrugihSkola.contains(u))
+                uceniciBezSkole.add(u);
+        return new ArrayList<ArrayList<Ucenik>>(){
+            {
+                add(temp);
+                add(uceniciBezSkole);
+            }
+        };
+    }
+    private ArrayList<Ucenik> uceniciPredmeta(Predmet predmet, ArrayList<ArrayList<Ucenik>> lista){
+        ArrayList<Ucenik> temp = new ArrayList<>();
+        ArrayList<Ucenik> uceniciDrugogProfesora = new ArrayList<>();
+        for(Ucenik u : lista.get(1))    //svi ucenici bez ikakve skole
+            temp.add(u);
+
+        for(Ucenik u : lista.get(0)){   //ucenici iste skole
+            for (Ocjena o : Ocjena.getSveOcjene().values()){
+                if( !temp.contains(o.getUcenik())
+                        && o.getUcenik()==u
+                        && o.getPredmet().getPredmet()==predmet){
+                    if(o.getPredmet().getProfesor().getId()==idUlogovanog){
+                        temp.add(u);    //ucenik skole koji slusa predm kod profesora
+                        System.out.println("Ucenik predmeta: "+predmet.getNaziv()+predmet.getRazred()+"je "+u.getIme()+" "+u.getPrezime());
+                    }
+                    else {
+                        uceniciDrugogProfesora.add(u); //ucenik skole koji vec slusa taj predmet kod drugog prof
+                        System.out.println("ucenik koji vec slusa predmet "+u.getIme()+" "+u.getPrezime());
+                    }
+                }
+            }
+            for (Izostanci i :Izostanci.getSviIzostanci().values()){
+                if( !temp.contains(i.getUcenik())
+                        && i.getUcenik()==u
+                        && i.getPredmet().getPredmet()==predmet){
+                    if(i.getPredmet().getProfesor().getId()==idUlogovanog){
+                        temp.add(u);    //ucenik skole koji slusa predm kod profesora
+                        System.out.println("Ucenik predmeta: "+predmet.getNaziv()+predmet.getRazred()+"je "+u.getIme()+" "+u.getPrezime());
+                    }
+                    else {
+                        uceniciDrugogProfesora.add(u); //ucenik skole koji vec slusa taj predmet kod drugog prof
+                        System.out.println("ucenik koji vec slusa predmet "+u.getIme()+" "+u.getPrezime());
+                    }
+                }
+            }
+            for(Ocjena o : Ocjena.getSveOcjene().values()){
+                if( !temp.contains(u) //ako je ovo tacno onda sigurno nije kod tog prof ali jeste u skoli mozda kod drugog prof
+                        && !uceniciDrugogProfesora.contains(u) //ako je ovo tacno onda ne slusa predmet uopste
+                        && o.getUcenik()==u
+                        && o.getPredmet().getPredmet().getRazred()==predmet.getRazred()){   //ako je ovo tacno ucenik je dobar razred za ovaj predmet
+                    temp.add(u);
+                    System.out.println("ucenik skole a nije u predmetu i dobar razred "+u.getIme()+" "+u.getPrezime());
+                    //System.out.println(o.getPredmet().getId());
+                    //System.out.println(predmet.getNaziv());
+                }
+            }
+            for(Izostanci i : Izostanci.getSviIzostanci().values()){
+                if( !temp.contains(u) //ako je ovo tacno onda sigurno nije kod tog prof ali jeste u skoli mozda kod drugog prof
+                        && !uceniciDrugogProfesora.contains(u) //ako je ovo tacno onda ne slusa predmet uopste
+                        && i.getUcenik()==u
+                        && i.getPredmet().getPredmet().getRazred()==predmet.getRazred()){   //ako je ovo tacno ucenik je dobar razred za ovaj predmet
+                    temp.add(u);
+                    System.out.println("ucenik skole a nije u predmetu i dobar razred "+u.getIme()+" "+u.getPrezime());
+                    //System.out.println(o.getPredmet().getId());
+                    //System.out.println(predmet.getNaziv());
+                }
+            }
+        }
+        return temp;
+    }
+    @FXML
+    void podnesiOcjenu(MouseEvent event){
+        //if tona uslova ispunjeno.......
+        dbMetode.dodajOcjenu(
+                ucenikId(ocjUcenik.getText()),
+                predmetUSkoliId(
+                        ocjPredmet.getText().split(", ")[0],
+                        ocjSkola.getText().split(", ")[0],
+                        idUlogovanog),
+                Integer.parseInt(ocjOcjena.getValue().toString()),
+                LocalDate.parse(ocjDatum.getValue().toString()));
+    }
+
+    @FXML
+    void dodajIzostanak(){
+
+    }
+
+    @FXML
+    void podnesiPosao(MouseEvent event){
+        if(izaberiSk.getValue()==null || izaberiPr.getValue()==null)
+            naslovObrasca.setText("Prazno polje, odabir nije dobar");
+        else{
+            if(!posaoPostoji(izaberiSk.getValue().toString(), izaberiPr.getValue().toString())){
+                naslovObrasca.setText("Uspjesno ste kreirali novu skolu");
+                dbMetode.dodajPosao(skolaId(izaberiSk.getValue().toString()), predmetId(izaberiPr.getValue().toString()), idUlogovanog);
+                Pane pane = (Pane) dodajNoviPosao.getParent();
+                pane.setVisible(false);
+                izaberiPr.setValue(null);
+                izaberiSk.setValue(null);
+            }
+            else
+                naslovObrasca.setText("Greska, podaci vec postoje");
+        }
+
+    }
+    private boolean posaoPostoji(String skola, String predmet){
+        for(PredmetUskoli p : PredmetUskoli.getSviPredmetiSkole().values())
+            if((p.getSkola().getNaziv()+" "+p.getSkola().getMjesto()).equals(skola) &&
+                    (p.getPredmet().getNaziv()+" "+p.getPredmet().getRazred()).equals(predmet)){
+                return true;
+            }
+        return false;
+    }
+    private int skolaId(String skola){
+        for(Skola s : Skola.getSveSkole().values())
+            if((s.getNaziv()+" "+s.getMjesto()).equals(skola))
+                return s.getId();
+        return -1;
+    }
+    private int predmetId(String predmet){
+        for(Predmet p : Predmet.getSviPredmeti().values())
+            if((p.getNaziv()+" "+p.getRazred()).equals(predmet))
+                return p.getId();
+        return -1;
+    }
+    private int ucenikId(String ucenik){
+        for(Ucenik u : Ucenik.getSviUcenici().values())
+            if((u.getIme()+" "+u.getPrezime()).equals(ucenik))
+                return u.getId();
+        return -1;
+    }
+    private int predmetUSkoliId(String predmet, String skola, int id){
+        for(PredmetUskoli p : PredmetUskoli.getSviPredmetiSkole().values())
+            if(p.getPredmet().getId()==predmetId(predmet) && p.getSkola().getId()==skolaId(skola) && p.getProfesor().getId()==idUlogovanog)
+                return p.getId();
+        return -1;
     }
 
 

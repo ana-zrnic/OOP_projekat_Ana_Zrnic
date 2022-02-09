@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.security.*;
 import java.math.*;
+import java.time.LocalDate;
 
 public class dbMetode extends dbConn{
 
@@ -49,7 +50,10 @@ public class dbMetode extends dbConn{
     public static String MD5(String s) throws Exception {//ovaj metod je kopiran sa interneta
         MessageDigest m=MessageDigest.getInstance("MD5");
         m.update(s.getBytes(),0,s.length());
-        return new BigInteger(1,m.digest()).toString(16);
+        String i = new BigInteger(1,m.digest()).toString(16);
+        if (i.length()<32)
+            i = "0"+i;
+        return i;
     }
 
 
@@ -159,9 +163,43 @@ public class dbMetode extends dbConn{
             e.printStackTrace();
         }
     }
-    /*public static void dodajMojuSkolu(){
+    public static void dodajPosao(int idSkola, int idPredmet, int idProfesor){
+        String QUERY = "INSERT INTO predmet_u_skoli VALUES (DEFAULT, '"+idPredmet+"', '"+idSkola+"', '"+idProfesor+"')";
+        try {
+            stmt.executeUpdate(QUERY, Statement.RETURN_GENERATED_KEYS);
+            ResultSet rs = stmt.getGeneratedKeys();
+            rs.next();
+            int id = rs.getInt(1);
+            new PredmetUskoli(Predmet.getSviPredmeti().get(idPredmet),Skola.getSveSkole().get(idSkola),Profesor.getSviProfesori().get(idProfesor), id);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
-    }*/
+    public static void kreirajOcjene (){
+        String QUERY = "SELECT id, ucenik_id, predmet_u_skoli_id, ocjena, datum FROM ocjena";
+        //String QUERY = "SELECT id, ucenik_id, predmet_u_skoli_id, ocjena, datum FROM ocjena";
+        try {
+            ResultSet rs = stmt.executeQuery(QUERY);
+            while (rs.next()) {
+                new Ocjena(Ucenik.getSviUcenici().get(rs.getInt("ucenik_id")), PredmetUskoli.getSviPredmetiSkole().get(rs.getInt("predmet_u_skoli_id")), rs.getInt("ocjena"), rs.getString("datum"),rs.getInt("id"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    public static void dodajOcjenu(int idUcenik, int idPredmet, int ocjena, LocalDate datum){
+        String QUERY = "INSERT INTO ocjena VALUES (DEFAULT, '"+idUcenik+"', '"+idPredmet+"', '"+ocjena+"', '"+datum+"')";
+        try {
+            stmt.executeUpdate(QUERY, Statement.RETURN_GENERATED_KEYS);
+            ResultSet rs = stmt.getGeneratedKeys();
+            rs.next();
+            int id = rs.getInt(1);
+            new Ocjena(Ucenik.getSviUcenici().get(idUcenik), PredmetUskoli.getSviPredmetiSkole().get(idPredmet),ocjena,datum.toString(), id);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
 
 
