@@ -19,6 +19,7 @@ public class Ocjena {
         this.predmet = predmet;
         this.ocjena = ocjena;
         this.datum = LocalDate.parse(datum);
+        this.id = id;
 
         sveOcjene.put(id,this);
     }

@@ -200,6 +200,29 @@ public class dbMetode extends dbConn{
             e.printStackTrace();
         }
     }
+    public static void kreirajIzostanke (){
+        String QUERY = "SELECT id, ucenik_id, predmet_u_skoli_id, datum FROM izostanci";
+        try {
+            ResultSet rs = stmt.executeQuery(QUERY);
+            while (rs.next()) {
+                new Izostanci(Ucenik.getSviUcenici().get(rs.getInt("ucenik_id")), PredmetUskoli.getSviPredmetiSkole().get(rs.getInt("predmet_u_skoli_id")), rs.getString("datum"),rs.getInt("id"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    public static void dodajIzostanak(int idUcenik, int idPredmet, LocalDate datum){
+        String QUERY = "INSERT INTO izostanci VALUES (DEFAULT, '"+idUcenik+"', '"+idPredmet+"', '"+datum.toString()+"')";
+        try {
+            stmt.executeUpdate(QUERY, Statement.RETURN_GENERATED_KEYS);
+            ResultSet rs = stmt.getGeneratedKeys();
+            rs.next();
+            int id = rs.getInt(1);
+            new Izostanci(Ucenik.getSviUcenici().get(idUcenik), PredmetUskoli.getSviPredmetiSkole().get(idPredmet),datum.toString(), id);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
 
 

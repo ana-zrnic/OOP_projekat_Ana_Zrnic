@@ -27,7 +27,7 @@
         <items>
           <AnchorPane fx:id="lijeviPane" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" style="-fx-background-color: #dfe8f7;">
                <children>
-                  <Button fx:id="mojeSkole" layoutX="73.0" layoutY="298.0" mnemonicParsing="false" onMouseClicked="#prikaziMojeSkole" prefHeight="32.0" prefWidth="180.0" style="-fx-background-color: #3e92ff;" text="Moje skole" textFill="WHITE">
+                  <Button layoutX="73.0" layoutY="298.0" mnemonicParsing="false" onMouseClicked="#prikaziMojeSkole" prefHeight="32.0" prefWidth="180.0" style="-fx-background-color: #3e92ff;" text="Moje skole" textFill="WHITE">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -35,7 +35,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <Button fx:id="mojiPredmeti" layoutX="73.0" layoutY="366.0" mnemonicParsing="false" onMouseClicked="#prikaziMojePredmete" prefHeight="32.0" prefWidth="180.0" style="-fx-background-color: #3e92ff;" text="Moji predmeti" textFill="WHITE">
+                  <Button layoutX="73.0" layoutY="366.0" mnemonicParsing="false" onMouseClicked="#prikaziMojePredmete" prefHeight="32.0" prefWidth="180.0" style="-fx-background-color: #3e92ff;" text="Moji predmeti" textFill="WHITE">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -53,7 +53,7 @@
                         <Font size="15.0" />
                      </font>
                   </Label>
-                  <Button fx:id="logoutBtn" layoutX="21.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#logout" text="logout">
+                  <Button layoutX="21.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#logout" text="logout">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor></Button>
@@ -91,7 +91,7 @@
             </AnchorPane>
           <AnchorPane fx:id="desniPane" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
-                  <Button fx:id="sviPredmeti" layoutX="39.0" layoutY="40.0" mnemonicParsing="false" onMouseClicked="#PosaoObrazac" onMouseEntered="#predjiIkona" onMouseExited="#izadjiIkona" opacity="0.8" prefHeight="150.0" prefWidth="150.0" style="-fx-background-color: none;">
+                  <Button layoutX="39.0" layoutY="40.0" mnemonicParsing="false" onMouseClicked="#PosaoObrazac" onMouseEntered="#predjiIkona" onMouseExited="#izadjiIkona" opacity="0.8" prefHeight="150.0" prefWidth="150.0" style="-fx-background-color: none;">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
@@ -106,7 +106,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button fx:id="sviProfesori" layoutX="300.0" layoutY="40.0" mnemonicParsing="false" onMouseClicked="#prikaziSveProfesore" onMouseEntered="#predjiIkona" onMouseExited="#izadjiIkona" opacity="0.8" prefHeight="150.0" prefWidth="150.0" style="-fx-background-color: none;">
+                  <Button layoutX="300.0" layoutY="40.0" mnemonicParsing="false" onMouseClicked="#prikaziSveProfesore" onMouseEntered="#predjiIkona" onMouseExited="#izadjiIkona" opacity="0.8" prefHeight="150.0" prefWidth="150.0" style="-fx-background-color: none;">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
@@ -121,7 +121,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button fx:id="sviUcenici" layoutX="554.0" layoutY="40.0" mnemonicParsing="false" onMouseClicked="#prikaziSveUcenike" onMouseEntered="#predjiIkona" onMouseExited="#izadjiIkona" opacity="0.8" prefHeight="150.0" prefWidth="150.0" style="-fx-background-color: none;">
+                  <Button layoutX="554.0" layoutY="40.0" mnemonicParsing="false" onMouseClicked="#prikaziSveUcenike" onMouseEntered="#predjiIkona" onMouseExited="#izadjiIkona" opacity="0.8" prefHeight="150.0" prefWidth="150.0" style="-fx-background-color: none;">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
@@ -136,7 +136,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button fx:id="sveSkole" layoutX="39.0" layoutY="251.0" mnemonicParsing="false" onMouseClicked="#PosaoObrazac" onMouseEntered="#predjiIkona" onMouseExited="#izadjiIkona" opacity="0.8" prefHeight="150.0" prefWidth="150.0" style="-fx-background-color: none;">
+                  <Button layoutX="39.0" layoutY="251.0" mnemonicParsing="false" onMouseClicked="#PosaoObrazac" onMouseEntered="#predjiIkona" onMouseExited="#izadjiIkona" opacity="0.8" prefHeight="150.0" prefWidth="150.0" style="-fx-background-color: none;">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
@@ -151,7 +151,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button fx:id="mojaOcjena" layoutX="300.0" layoutY="251.0" mnemonicParsing="false" onMouseEntered="#predjiIkona" onMouseExited="#izadjiIkona" prefHeight="150.0" prefWidth="150.0" style="-fx-background-color: none;">
+                  <Button layoutX="300.0" layoutY="251.0" mnemonicParsing="false" onMouseEntered="#predjiIkona" onMouseExited="#izadjiIkona" prefHeight="150.0" prefWidth="150.0" style="-fx-background-color: none;">
                      <cursor>
                         <Cursor fx:constant="DEFAULT" />
                      </cursor>
@@ -169,7 +169,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button fx:id="noviPredmet" layoutX="169.0" layoutY="40.0" mnemonicParsing="false" onMouseClicked="#dodajPredmet" onMouseEntered="#predjiIkona" onMouseExited="#izadjiIkona" opacity="0.8" prefHeight="46.0" prefWidth="51.0" style="-fx-background-color: none;">
+                  <Button layoutX="169.0" layoutY="40.0" mnemonicParsing="false" onMouseClicked="#dodajPredmet" onMouseEntered="#predjiIkona" onMouseExited="#izadjiIkona" opacity="0.8" prefHeight="46.0" prefWidth="51.0" style="-fx-background-color: none;">
                      <graphic>
                         <ImageView cache="true" cacheHint="QUALITY" fitHeight="48.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -181,7 +181,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <Button fx:id="noviProfesor" layoutX="431.0" layoutY="40.0" mnemonicParsing="false" onMouseClicked="#dodajProfesora" onMouseEntered="#predjiIkona" onMouseExited="#izadjiIkona" opacity="0.8" prefHeight="46.0" prefWidth="51.0" style="-fx-background-color: none;">
+                  <Button layoutX="431.0" layoutY="40.0" mnemonicParsing="false" onMouseClicked="#dodajProfesora" onMouseEntered="#predjiIkona" onMouseExited="#izadjiIkona" opacity="0.8" prefHeight="46.0" prefWidth="51.0" style="-fx-background-color: none;">
                      <graphic>
                         <ImageView cache="true" cacheHint="QUALITY" fitHeight="48.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -193,7 +193,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <Button fx:id="noviUcenik" layoutX="683.0" layoutY="40.0" mnemonicParsing="false" onMouseClicked="#dodajUcenika" onMouseEntered="#predjiIkona" onMouseExited="#izadjiIkona" opacity="0.8" prefHeight="46.0" prefWidth="51.0" style="-fx-background-color: none;">
+                  <Button layoutX="683.0" layoutY="40.0" mnemonicParsing="false" onMouseClicked="#dodajUcenika" onMouseEntered="#predjiIkona" onMouseExited="#izadjiIkona" opacity="0.8" prefHeight="46.0" prefWidth="51.0" style="-fx-background-color: none;">
                      <graphic>
                         <ImageView cache="true" cacheHint="QUALITY" fitHeight="48.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -217,7 +217,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <Button fx:id="novaOcjena" layoutX="430.0" layoutY="251.0" mnemonicParsing="false" onMouseClicked="#dodajOcjenu" onMouseEntered="#predjiIkona" onMouseExited="#izadjiIkona" opacity="0.8" prefHeight="46.0" prefWidth="51.0" style="-fx-background-color: none;">
+                  <Button layoutX="430.0" layoutY="251.0" mnemonicParsing="false" onMouseClicked="#dodajOcjenu" onMouseEntered="#predjiIkona" onMouseExited="#izadjiIkona" opacity="0.8" prefHeight="46.0" prefWidth="51.0" style="-fx-background-color: none;">
                      <graphic>
                         <ImageView cache="true" cacheHint="QUALITY" fitHeight="48.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -229,7 +229,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <Button fx:id="sviIzostanci" layoutX="554.0" layoutY="251.0" mnemonicParsing="false" onMouseEntered="#predjiIkona" onMouseExited="#izadjiIkona" opacity="0.8" prefHeight="150.0" prefWidth="150.0" style="-fx-background-color: none;">
+                  <Button layoutX="554.0" layoutY="251.0" mnemonicParsing="false" onMouseEntered="#predjiIkona" onMouseExited="#izadjiIkona" opacity="0.8" prefHeight="150.0" prefWidth="150.0" style="-fx-background-color: none;">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
@@ -244,7 +244,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button fx:id="noviIzostanak" layoutX="683.0" layoutY="251.0" mnemonicParsing="false" onMouseClicked="#dodajIzostanak" onMouseEntered="#predjiIkona" onMouseExited="#izadjiIkona" opacity="0.8" prefHeight="46.0" prefWidth="51.0" style="-fx-background-color: none;">
+                  <Button layoutX="683.0" layoutY="251.0" mnemonicParsing="false" onMouseClicked="#dodajIzostanak" onMouseEntered="#predjiIkona" onMouseExited="#izadjiIkona" opacity="0.8" prefHeight="46.0" prefWidth="51.0" style="-fx-background-color: none;">
                      <graphic>
                         <ImageView cache="true" cacheHint="QUALITY" fitHeight="48.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -293,7 +293,7 @@
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <Group fx:id="genderGrp" layoutX="127.0" layoutY="320.0">
+                  <Group layoutX="127.0" layoutY="320.0">
                      <children>
                         <RadioButton fx:id="z" mnemonicParsing="false" text="Z">
                            <toggleGroup>
@@ -351,7 +351,7 @@
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <Group fx:id="genderGrp1" layoutX="127.0" layoutY="319.0">
+                  <Group layoutX="127.0" layoutY="319.0">
                      <children>
                         <RadioButton fx:id="z1" mnemonicParsing="false" text="Z">
                            <toggleGroup>
@@ -500,12 +500,40 @@
                   <Label layoutX="31.0" layoutY="45.0" text="Izaberi skolu" />
                   <Label layoutX="31.0" layoutY="202.0" text="Izaberi Ucenika" />
                   <MenuButton fx:id="ocjSkola" layoutX="26.0" layoutY="62.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="266.0" text="-" />
-                  <MenuButton fx:id="ocjPredmet" layoutX="26.0" layoutY="136.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="266.0" text="-" />
-                  <Label layoutX="26.0" layoutY="286.0" text="Ocjena" />
-                  <ChoiceBox fx:id="ocjOcjena" layoutX="26.0" layoutY="303.0" prefHeight="25.0" prefWidth="54.0" />
-                  <Label layoutX="118.0" layoutY="286.0" text="Datum" />
-                  <DatePicker fx:id="ocjDatum" layoutX="117.0" layoutY="303.0" />
-                  <MenuButton fx:id="ocjUcenik" layoutX="26.0" layoutY="219.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="266.0" text="-" />
+                  <MenuButton fx:id="ocjPredmet" disable="true" layoutX="26.0" layoutY="136.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="266.0" text="-" />
+                  <Label layoutX="26.0" layoutY="304.0" text="Ocjena" />
+                  <ChoiceBox fx:id="ocjOcjena" disable="true" layoutX="26.0" layoutY="321.0" prefHeight="25.0" prefWidth="54.0" />
+                  <Label layoutX="118.0" layoutY="304.0" text="Datum" />
+                  <DatePicker fx:id="ocjDatum" disable="true" layoutX="117.0" layoutY="321.0" />
+                  <MenuButton fx:id="ocjUcenik" disable="true" layoutX="26.0" layoutY="219.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="266.0" text="-" />
+                  <Label layoutX="31.0" layoutY="119.0" text="Izaberi predmet" />
+                  <Label fx:id="ocjSveOcjeneUcenika" layoutX="26.0" layoutY="259.0" prefHeight="17.0" prefWidth="266.0" text="Sve ocjene ucenika: " />
+               </children>
+            </Pane>
+            <Pane fx:id="izObrazac" layoutX="226.0" layoutY="160.0" prefHeight="469.0" prefWidth="314.0" style="-fx-background-color: E3E9ED;" visible="false">
+               <effect>
+                  <DropShadow offsetX="-5.0" offsetY="5.0" spread="0.15">
+                     <color>
+                        <Color opacity="0.14041097462177277" />
+                     </color>
+                  </DropShadow>
+               </effect>
+               <children>
+                  <Button fx:id="dodajIzBtn" layoutX="122.0" layoutY="408.0" mnemonicParsing="false" onMouseClicked="#podnesiIzostanak" style="-fx-background-color: #3e92ff;" text="Podnesi" textFill="WHITE">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <Label layoutX="31.0" layoutY="45.0" text="Izaberi skolu" />
+                  <Label layoutX="31.0" layoutY="202.0" text="Izaberi Ucenika" />
+                  <MenuButton fx:id="izSkola" layoutX="26.0" layoutY="62.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="266.0" text="-" />
+                  <MenuButton fx:id="izPredmet" disable="true" layoutX="26.0" layoutY="136.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="266.0" text="-" />
+                  <Label layoutX="118.0" layoutY="304.0" text="Datum" />
+                  <DatePicker fx:id="izDatum" disable="true" layoutX="117.0" layoutY="321.0" />
+                  <MenuButton fx:id="izUcenik" disable="true" layoutX="26.0" layoutY="219.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="266.0" text="-" />
                   <Label layoutX="31.0" layoutY="119.0" text="Izaberi predmet" />
                </children>
             </Pane>

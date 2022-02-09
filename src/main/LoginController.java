@@ -17,6 +17,7 @@ import javafx.stage.Stage;
 import tabele.PristupniPodaci;
 import radSaBazom.dbMetode;
 import tabele.Profesor;
+import tabele.Ucenik;
 
 import java.io.IOException;
 
@@ -65,13 +66,21 @@ public class LoginController {
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("resources/homepage-view.fxml"));
                     root =  loader.load();
                     HomepageController controller = loader.getController();
-                    controller.setInfo(u);
+                    controller.setInfo(u,true);
                     scene = new Scene(root);
                     stage.setScene(scene);
                     stage.show();
                 }
-                else //ovdje ide za ucenika
-                    ;
+                else {
+                    u.setPol(ucPol(p.getId()));
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("resources/homepage-view-uc.fxml"));
+                    root =  loader.load();
+                    HomepageUcController controller = loader.getController();
+                    controller.setInfo(u,false);
+                    scene = new Scene(root);
+                    stage.setScene(scene);
+                    stage.show();
+                }
             }
             else if(username.equals("") || pass.equals("")){
                     loginErr.setVisible(true);
@@ -102,6 +111,12 @@ public class LoginController {
         for(Profesor p : Profesor.getSviProfesori().values())
             if(kljuc==p.getPristupniPodaci().getId())
                 return p.getPol();
+        return -1;
+    }
+    private int ucPol(int kljuc){
+        for(Ucenik u : Ucenik.getSviUcenici().values())
+            if(kljuc==u.getPristupniPodaci().getId())
+                return u.getPol();
         return -1;
     }
     private boolean tipNaloga(String usrnm){

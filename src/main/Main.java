@@ -29,6 +29,7 @@ public class Main extends Application {
         dbMetode.kreirajSkole();
         dbMetode.kreirajPredmeteUSkoli();
         dbMetode.kreirajOcjene();
+        dbMetode.kreirajIzostanke();
     }
 
     public static void main(String[] args) {
