@@ -91,9 +91,6 @@ public class HomepageController extends Controller{
     private TextField noviUcUsrnm;
 
     @FXML
-    private Pane obrazac;
-
-    @FXML
     private Pane predObrazac;
 
     @FXML
@@ -158,6 +155,10 @@ public class HomepageController extends Controller{
 
     @FXML
     void prikaziMojeSkole(MouseEvent event) {
+        Button btn = (Button) event.getSource();
+        for (Node ch : prikaziSvePane.getChildren())
+            ch.setVisible(false);
+
         ArrayList<Skola> temp = new ArrayList<>();
         desniPane.setVisible(false);
         prikaziSve.setVisible(true);
@@ -217,7 +218,7 @@ public class HomepageController extends Controller{
 
     @FXML
     void prikaziPocetnu(MouseEvent event) {
-        Pane[] obrasci = {profObrazac, predObrazac, ucObrazac, skObrazac,zaposliSe,ocjObrazac};
+        Pane[] obrasci = {profObrazac, predObrazac, ucObrazac, skObrazac,zaposliSe,ocjObrazac,izObrazac};
         Button btn = (Button) event.getSource();
         Pane pane = obrazac;
         for (Pane ch : obrasci)
@@ -477,7 +478,7 @@ public class HomepageController extends Controller{
         ocjOcjena.setDisable(true);
 
         for(int i=1; i<=5; i++)
-            ocjOcjena.getItems().add(i+"");
+            ocjOcjena.getItems().add(i+""); //moze i sa addAll
         ucitaj(ocjSkola,ocjPredmet,ocjUcenik,ocjDatum,true); //true oznacava da smo u obrascu ocjene
 
     }
@@ -652,6 +653,7 @@ public class HomepageController extends Controller{
     void podnesiOcjenu(MouseEvent event){
         boolean flag=false;
         boolean tacnostObrasca = true;
+        boolean odustan = false;
         ArrayList<LocalDate> datumi = prikaziOcjeneUcenika(Ucenik.getSviUcenici().get(ucenikId(ocjUcenik.getText())),   //sve ocjene iz predmeta
                 Skola.getSveSkole().get(skolaId(ocjSkola.getText())),
                 Predmet.getSviPredmeti().get(predmetId(ocjPredmet.getText())));
@@ -674,6 +676,10 @@ public class HomepageController extends Controller{
         }
 
         LocalDate danas = ocjDatum.getValue();
+        for(Izostanci i : Izostanci.getSviIzostanci().values())
+            if(i.getUcenik()==Ucenik.getSviUcenici().get(ucenikId(ocjUcenik.getText()))
+                    && i.getDatum().isEqual(danas))
+                odustan=true;
 
         for(Node n : ocjObrazac.getChildren())  //za disable
             if(n.isDisabled())
@@ -682,46 +688,50 @@ public class HomepageController extends Controller{
             tacnostObrasca = false;
 
        if(tacnostObrasca){  //ukoliko je sve korektno popunjeno
-           if(najnovijiDatum==null && najnovijiDatumPredmeta==null){
-               dodajOcjenuHelp();
-               System.out.println("1");
-           }
-           else if(najnovijiDatum!=null && najnovijiDatumPredmeta==null){
-               System.out.println("2");
-               if(danas.isEqual(najnovijiDatum) ){
-                   if(flag)
-                       naslovObrasca.setText("Ucenik vec ima dvije ocjene danas");
-               }
-               else if(danas.isAfter(najnovijiDatum) )
+           if(!odustan){ //i ako nije odsutan
+               if(najnovijiDatum==null && najnovijiDatumPredmeta==null){
                    dodajOcjenuHelp();
-           }
-           else if(najnovijiDatum==null && najnovijiDatumPredmeta!=null){
-               System.out.println("3");
-               if(danas.isAfter(najnovijiDatumPredmeta)){
-                   if(danas.getDayOfMonth()-datumi.get(datumi.size()-1).getDayOfMonth()>=7)
-                       dodajOcjenuHelp();
-                   else
-                       naslovObrasca.setText("Ucenika ste ocijenili u posljednjih 7 dana");
+                   System.out.println("1");
                }
-               else
-                   naslovObrasca.setText("Datum ove ocjene je stariji od posljednje");
-           }
-           else{
-               if(danas.isAfter(najnovijiDatumPredmeta)){
-                   if(danas.getDayOfMonth()-datumi.get(datumi.size()-1).getDayOfMonth()>=7)
+               else if(najnovijiDatum!=null && najnovijiDatumPredmeta==null){
+                   System.out.println("2");
+                   if(danas.isEqual(najnovijiDatum) ){
+                       if(flag)
+                           naslovObrasca.setText("Ucenik vec ima dvije ocjene danas");
+                   }
+                   else if(danas.isAfter(najnovijiDatum) )
                        dodajOcjenuHelp();
-                   else
-                       naslovObrasca.setText("Ucenika ste ocijenili u posljednjih 7 dana");
                }
-               else if(danas.isEqual(najnovijiDatum)){
-                   if(!flag)
-                       dodajOcjenuHelp();
+               else if(najnovijiDatum==null && najnovijiDatumPredmeta!=null){
+                   System.out.println("3");
+                   if(danas.isAfter(najnovijiDatumPredmeta)){
+                       if(danas.getDayOfMonth()-datumi.get(datumi.size()-1).getDayOfMonth()>=7)
+                           dodajOcjenuHelp();
+                       else
+                           naslovObrasca.setText("Ucenika ste ocijenili u posljednjih 7 dana");
+                   }
                    else
-                       naslovObrasca.setText("Ucenik vec ima dvije ocjene danas");
+                       naslovObrasca.setText("Datum ove ocjene je stariji od posljednje");
                }
-               else
-                   naslovObrasca.setText("Datum ove ocjene je stariji od posljednje");
+               else{
+                   if(danas.isAfter(najnovijiDatumPredmeta)){
+                       if(danas.getDayOfMonth()-datumi.get(datumi.size()-1).getDayOfMonth()>=7)
+                           dodajOcjenuHelp();
+                       else
+                           naslovObrasca.setText("Ucenika ste ocijenili u posljednjih 7 dana");
+                   }
+                   else if(danas.isEqual(najnovijiDatum)){
+                       if(!flag)
+                           dodajOcjenuHelp();
+                       else
+                           naslovObrasca.setText("Ucenik vec ima dvije ocjene danas");
+                   }
+                   else
+                       naslovObrasca.setText("Datum ove ocjene je stariji od posljednje");
+               }
            }
+           else
+               naslovObrasca.setText("Ucenik je danas odsutan");
        }
        else naslovObrasca.setText("neko polje je prazno");
     }

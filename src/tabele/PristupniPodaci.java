@@ -52,6 +52,10 @@ public class PristupniPodaci {
         //konekcija.kreirajPristupnePodatke();
     }
 
+    public void setSifra(String sifra) {
+        this.sifra = sifra;
+    }
+
     private boolean postojiNalog(PristupniPodaci podaci){
         if(sviPristupniPodaci!=null)
             for(PristupniPodaci p : sviPristupniPodaci.values())

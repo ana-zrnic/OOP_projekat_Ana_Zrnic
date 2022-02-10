@@ -57,12 +57,6 @@ public class Skola {
 
     @Override
     public String toString() {
-        return "Skola{" +
-                "naziv='" + naziv + '\'' +
-                ", grad='" + grad + '\'' +
-                ", mjesto='" + mjesto + '\'' +
-                ", drzava='" + drzava + '\'' +
-                ", id=" + id +
-                '}';
+        return naziv+" "+mjesto;
     }
 }

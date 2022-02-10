@@ -66,7 +66,7 @@ public class LoginController {
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("resources/homepage-view.fxml"));
                     root =  loader.load();
                     HomepageController controller = loader.getController();
-                    controller.setInfo(u,true);
+                    controller.setInfo(u,true, pass);
                     scene = new Scene(root);
                     stage.setScene(scene);
                     stage.show();
@@ -76,7 +76,7 @@ public class LoginController {
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("resources/homepage-view-uc.fxml"));
                     root =  loader.load();
                     HomepageUcController controller = loader.getController();
-                    controller.setInfo(u,false);
+                    controller.setInfo(u,false, pass);
                     scene = new Scene(root);
                     stage.setScene(scene);
                     stage.show();

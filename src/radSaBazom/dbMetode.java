@@ -1,5 +1,9 @@
 package radSaBazom;
 
+import org.python.core.PyFunction;
+import org.python.core.PyObject;
+import org.python.core.PyString;
+import org.python.util.PythonInterpreter;
 import tabele.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -23,9 +27,15 @@ public class dbMetode extends dbConn{
             e.printStackTrace();
         }
     }
+    private static void posaljiMail(String email, String korisnickoIme, String sifra){
+        PythonInterpreter interpreter = new PythonInterpreter();
+        interpreter.execfile("C:\\Users\\WIN10\\Desktop\\Algodat\\programming exercise 1\\mail.py");
+        PyFunction function = (PyFunction)interpreter.get("posaljiMail",PyFunction.class);
+        PyObject pyobject = function.__call__(new PyString(korisnickoIme),new PyString(sifra), new PyString(email));
+    }
     public static int dodajPristupnePodatke (String email, String korisnickoIme, String sifra) throws Exception { //zajednicko za prof i ucenike
+        //posaljiMail("ana.zrnic10@gmail.com",korisnickoIme,sifra);
         String QUERY = "INSERT INTO pristupni_podaci VALUES (DEFAULT, '"+korisnickoIme+"', '"+email+"', '"+MD5(sifra)+"')";
-        //String QUERY = "INSERT INTO baza2 VALUES (DEFAULT, '"+email+"', '"+korisnickoIme+"', '"+sifra+"')";
         int id = -1;
         try {
             stmt.executeUpdate(QUERY, Statement.RETURN_GENERATED_KEYS);
@@ -224,6 +234,42 @@ public class dbMetode extends dbConn{
         }
     }
 
-
+    public static void kreirajPitanja (){
+        String QUERY = "SELECT id, pitanje FROM pitanje";
+        try {
+            ResultSet rs = stmt.executeQuery(QUERY);
+            while (rs.next()) {
+                new Pitanje(rs.getString("pitanje"), rs.getInt("id"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    public static void kreirajOcjenePredmeta(){
+        String QUERY = "SELECT id, predmet_u_skoli_id, ucenik_id, pitanje_id, ocjena FROM ocjena_predmeta";
+        try {
+            ResultSet rs = stmt.executeQuery(QUERY);
+            while (rs.next()) {
+                new OcjenaPredmeta(Ucenik.getSviUcenici().get(rs.getInt("ucenik_id"))
+                        ,PredmetUskoli.getSviPredmetiSkole().get(rs.getInt("predmet_u_skoli_id"))
+                        ,Pitanje.getSvaPitanja().get(rs.getInt("pitanje_id"))
+                        ,rs.getInt("ocjena"), rs.getInt("id"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    public static void dodajOcjenuPredmeta(int idUcenik, int idPredmet, int idPitanja, int ocjena){
+        String QUERY = "INSERT INTO ocjena_predmeta VALUES (DEFAULT, '"+idPredmet+"', '"+idUcenik+"', '"+idPitanja+"', '"+ocjena+"')";
+        try {
+            stmt.executeUpdate(QUERY, Statement.RETURN_GENERATED_KEYS);
+            ResultSet rs = stmt.getGeneratedKeys();
+            rs.next();
+            int id = rs.getInt(1);
+            new OcjenaPredmeta(Ucenik.getSviUcenici().get(idUcenik), PredmetUskoli.getSviPredmetiSkole().get(idPredmet),Pitanje.getSvaPitanja().get(idPitanja),ocjena, id);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
 }
