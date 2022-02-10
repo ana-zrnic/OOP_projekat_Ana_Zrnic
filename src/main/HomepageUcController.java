@@ -9,8 +9,6 @@ import radSaBazom.dbMetode;
 import tabele.*;
 
 import java.util.ArrayList;
-import java.util.concurrent.atomic.AtomicReference;
-
 public class HomepageUcController extends Controller{
 
     @FXML
@@ -60,8 +58,6 @@ public class HomepageUcController extends Controller{
         izborPredmeta.getItems().clear();
         izborPredmeta.setText("-");
         ArrayList<PredmetUskoli> temp = vratiListuMojihPredmeta(idUlogovanog); //predmeti iz kojih nisam dala ocjenu
-        for(PredmetUskoli p : temp)
-            System.out.println(p.getId());
         ArrayList<Label> labele = new ArrayList<Label>(){
             {
                 add(pitanje1);
@@ -92,20 +88,16 @@ public class HomepageUcController extends Controller{
             labele.get(i).setText(Pitanje.getSvaPitanja().get(i+1).getPitanje());
         }
 
-        PredmetUskoli predmet=null;
-        //System.out.println(OcjenaPredmeta.getSveOcjenePredmeta().toString());
         for (OcjenaPredmeta o : OcjenaPredmeta.getSveOcjenePredmeta().values()) {
-            System.out.println(o.getPredmet().getId());
             if (temp.contains(o.getPredmet()) && o.getUcenik().getId() == idUlogovanog) {
                 //vec je ucenik ocijenio iz ovog predmeta
-                System.out.println("test");
                 temp.remove(o.getPredmet());
             }
         }
 
         if(!temp.isEmpty()){
             for (PredmetUskoli p : temp)
-                izborPredmeta.getItems().add(new MenuItem(p.getPredmet().getNaziv() + " " + p.getPredmet().getRazred()));
+                izborPredmeta.getItems().add(new MenuItem(p.getPredmet().toString()));
             for (MenuItem i : izborPredmeta.getItems())
                 i.setOnAction(eventSk -> {
                     profOcjObrazac.setDisable(false);
@@ -126,10 +118,10 @@ public class HomepageUcController extends Controller{
         };
         if(izbor1.getValue()!=null && izbor2.getValue()!=null && izbor3.getValue()!=null && izbor4.getValue()!=null){
             for(int i=1; i<=4; i++) {
-                dbMetode.dodajOcjenuPredmeta(idUlogovanog,
-                        predmetUSkoliId(izborPredmeta.getText(), vratiListuMojihPredmeta(idUlogovanog).get(0).getSkola().toString())
-                        , i
-                        , Integer.parseInt(izbori.get(i-1).getValue().toString()));
+                dbMetode.dodajOcjenuPredmeta(idUlogovanog
+                                            ,predmetUSkoliId(izborPredmeta.getText(), vratiListuMojihPredmeta(idUlogovanog).get(0).getSkola().toString())
+                                            , i
+                                            , Integer.parseInt(izbori.get(i-1).getValue().toString()));
                 profOcjObrazac.setDisable(true);
                 izborPredmeta.setDisable(true);
             }
@@ -155,7 +147,9 @@ public class HomepageUcController extends Controller{
 
         int Yodstojanje = 0;
         if(vratiListuMojihPredmeta(idUlogovanog)!=null){
-            for(Ocjena o : prikaziSveOcjeneUcenika(Ucenik.getSviUcenici().get(idUlogovanog), vratiListuMojihPredmeta(idUlogovanog).get(0).getSkola())){
+            for(Ocjena o : prikaziSveOcjeneUcenika(Ucenik.getSviUcenici().get(idUlogovanog)
+                                                    , vratiListuMojihPredmeta(idUlogovanog).get(0).getSkola())
+            ){
                 System.out.println(o.getId());
                 ucitajListu(o.getId(), Yodstojanje, 4);
                 Yodstojanje += 215;
@@ -175,7 +169,6 @@ public class HomepageUcController extends Controller{
         int Yodstojanje = 0;
         if(!vratiListuMojihIzostanaka().isEmpty()){
             for(Izostanci i : vratiListuMojihIzostanaka()){
-                //System.out.println(vratiListuMojihIzostanaka().size());
                 ucitajListu(i.getId(), Yodstojanje, 5);
                 Yodstojanje += 215;
             }

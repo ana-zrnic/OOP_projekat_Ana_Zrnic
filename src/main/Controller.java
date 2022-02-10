@@ -173,37 +173,38 @@ public class Controller {
                     image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("resources/img/teacher-m.png")));
                 else
                     image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("resources/img/teacher-f.png")));
-                label.setText(Profesor.getSviProfesori().get(id).getIme() + " " + Profesor.getSviProfesori().get(id).getPrezime());
+                label.setText(Profesor.getSviProfesori().get(id).toString());
             }
             case 1 -> {
                 if (Ucenik.getSviUcenici().get(id).getPol() == 1)
                     image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("resources/img/student-m.png")));
                 else
                     image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("resources/img/student-f.png")));
-                label.setText(Ucenik.getSviUcenici().get(id).getIme() + " " + Ucenik.getSviUcenici().get(id).getPrezime());
+                label.setText(Ucenik.getSviUcenici().get(id).toString());
             }
             case 2 -> {
                 image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("resources/img/add-new-sub.png")));
-                label.setText(PredmetUskoli.getSviPredmetiSkole().get(id).getPredmet().getNaziv() + " " + PredmetUskoli.getSviPredmetiSkole().get(id).getPredmet().getRazred());
-                info.setText("Skola: " + PredmetUskoli.getSviPredmetiSkole().get(id).getSkola().getNaziv() + " " + PredmetUskoli.getSviPredmetiSkole().get(id).getSkola().getMjesto()+"\n");
+                label.setText(PredmetUskoli.getSviPredmetiSkole().get(id).getPredmet().toString());
+                info.setText("Skola: " + PredmetUskoli.getSviPredmetiSkole().get(id).getSkola().toString()+"\n");
                 if(!nalogTip){
                     info.setText(info.getText()+"Ocjene predmeta: ");
-                    for(Ocjena o : prikaziSveOcjeneUcenika(Ucenik.getSviUcenici().get(idUlogovanog), PredmetUskoli.getSviPredmetiSkole().get(id).getSkola(), PredmetUskoli.getSviPredmetiSkole().get(id).getPredmet()))
+                    for(Ocjena o : prikaziSveOcjeneUcenika(Ucenik.getSviUcenici().get(idUlogovanog),
+                                                            PredmetUskoli.getSviPredmetiSkole().get(id).getSkola(),
+                                                            PredmetUskoli.getSviPredmetiSkole().get(id).getPredmet()))
                         info.setText(info.getText()+o.getOcjena()+" ");
                 }
-
             }
             case 3 -> {
                 image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("resources/img/add-new-sch.png")));
-                label.setText(Skola.getSveSkole().get(id).getNaziv() + " " + Skola.getSveSkole().get(id).getMjesto());
+                label.setText(Skola.getSveSkole().get(id).toString());
             }
             case 4 -> {
                 image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("resources/img/prof-grade.png")));
                 if(!nalogTip){
-                    label.setText((Ocjena.getSveOcjene().get(id)).getPredmet().getPredmet().getNaziv()+" "+(Ocjena.getSveOcjene().get(id)).getPredmet().getPredmet().getRazred());
+                    label.setText((Ocjena.getSveOcjene().get(id)).getPredmet().getPredmet().toString());
                     info.setText("Ocjena: "+Ocjena.getSveOcjene().get(id).getOcjena()
-                            +"\n"
-                            +"Datum: "+Ocjena.getSveOcjene().get(id).getDatum().toString());
+                                +"\n"
+                                +"Datum: "+Ocjena.getSveOcjene().get(id).getDatum().toString());
                 }
                 else {
                     label.setText((OcjenaPredmeta.getSveOcjenePredmeta().get(id)).getPredmet().getPredmet().toString());
@@ -279,7 +280,7 @@ public class Controller {
         btn.setVisible(false);
     }
     @FXML
-    void prikaziPolja(MouseEvent event) {
+    void prikaziPolja(MouseEvent event) {       //mijenjanje sifre
         promijeniSifruBtn.setVisible(false);
         l1.setVisible(true);
         l2.setVisible(true);
@@ -288,7 +289,7 @@ public class Controller {
         potvrdiBtn.setVisible(true);
     }
     @FXML
-    void sakrijPolja(MouseEvent event) throws Exception {
+    void sakrijPolja(MouseEvent event) throws Exception {   //mijenjanje sifre
 
         if(f1.getText().equals("") || f2.getText().equals("")) {
             l3.setVisible(true);
@@ -340,19 +341,19 @@ public class Controller {
     }
     protected int skolaId(String skola){
         for(Skola s : Skola.getSveSkole().values())
-            if((s.getNaziv()+" "+s.getMjesto()).equals(skola))
+            if(s.toString().equals(skola))
                 return s.getId();
         return -1;
     }
     protected int predmetId(String predmet){
         for(Predmet p : Predmet.getSviPredmeti().values())
-            if((p.getNaziv()+" "+p.getRazred()).equals(predmet))
+            if(p.toString().equals(predmet))
                 return p.getId();
         return -1;
     }
     protected int ucenikId(String ucenik){
         for(Ucenik u : Ucenik.getSviUcenici().values())
-            if((u.getIme()+" "+u.getPrezime()).equals(ucenik))
+            if((u.toString()).equals(ucenik))
                 return u.getId();
         return -1;
     }

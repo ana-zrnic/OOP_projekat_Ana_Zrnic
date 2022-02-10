@@ -4,7 +4,6 @@ import java.util.Hashtable;
 import java.util.Map;
 
 public class PristupniPodaci {
-    //private static radSaBazom.dbTest konekcija = new radSaBazom.dbTest();
     //private static ArrayList<PristupniPodaci> sviPristupniPodaci = new ArrayList<>();
     private static Map<Integer, PristupniPodaci> sviPristupniPodaci = new Hashtable<>();
     private final String korisnickoIme, email;  //final?
@@ -17,7 +16,7 @@ public class PristupniPodaci {
         this.email = email;
         this.sifra = sifra;
         this.id = id;
-        if(postojiNalog(this))  //poslati samo atribute ili citav objekat?
+        if(postojiNalog(this))
             System.out.println("postoji nalog sa ovim podacima"); //exception??
         else {
             sviPristupniPodaci.put(id, this);
@@ -46,10 +45,6 @@ public class PristupniPodaci {
 
     public String toString (){
         return "[korisnik: "+this.korisnickoIme +", "+ this.sifra+", " + this.email+"]";
-    }
-
-    public static void kreirajDbObjekte(){
-        //konekcija.kreirajPristupnePodatke();
     }
 
     public void setSifra(String sifra) {

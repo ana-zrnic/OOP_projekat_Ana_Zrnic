@@ -45,4 +45,9 @@ public class Ucenik {
     public PristupniPodaci getPristupniPodaci() {
         return pristupniPodaci;
     }
+
+    @Override
+    public String toString() {
+        return ime+" "+prezime;
+    }
 }

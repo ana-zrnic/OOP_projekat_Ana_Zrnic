@@ -47,13 +47,7 @@ public class Profesor {
 
     @Override
     public String toString() {
-        return "Profesor{" +
-                "pristupniPodaci=" + pristupniPodaci +
-                ", ime='" + ime + '\'' +
-                ", prezime='" + prezime + '\'' +
-                ", pol=" + pol +
-                ", id=" + id +
-                '}';
+        return ime+" "+prezime;
     }
 }
 
