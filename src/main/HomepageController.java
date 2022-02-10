@@ -489,6 +489,22 @@ public class HomepageController extends Controller{
         izObrazac.setVisible(true);
         ucitaj(izSkola,izPredmet,izUcenik,izDatum,false);
     }
+    @FXML
+    void prikaziMojeOcjene(MouseEvent event){
+        desniPane.setVisible(false);
+        prikaziSve.setVisible(true);
+        pocetna1.setVisible(true);
+        int Yodstojanje = 0;
+        if(vratiListuMojihPredmeta(idUlogovanog,true)!=null){
+            for(OcjenaPredmeta o : OcjenaPredmeta.getSveOcjenePredmeta().values()){
+                if(o.getPredmet().getProfesor().getId()==idUlogovanog){
+                    //System.out.println(o.getId());
+                    ucitajListu(o.getId(), Yodstojanje, 4);
+                    Yodstojanje += 215;
+                }
+            }
+        }
+    }
     private ArrayList<LocalDate> prikaziOcjeneUcenika(Ucenik ucenik, Skola skola, Predmet predmet){
         ocjSveOcjeneUcenika.setText("Sve ocjene ucenika: ");
         ArrayList<LocalDate> temp = new ArrayList<>(); //cuva datume ocjena iz tog predmeta

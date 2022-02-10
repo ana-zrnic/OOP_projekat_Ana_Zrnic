@@ -162,6 +162,35 @@ public class HomepageUcController extends Controller{
             }
         }
     }
+    @FXML
+    void prikaziSveIzostanke(MouseEvent event){
+        Button btn = (Button) event.getSource();
+        for (Node ch : prikaziSvePane.getChildren())
+            ch.setVisible(false);
+
+        desniPane.setVisible(false);
+        prikaziSve.setVisible(true);
+        pocetna1.setVisible(true);
+
+        int Yodstojanje = 0;
+        if(!vratiListuMojihIzostanaka().isEmpty()){
+            for(Izostanci i : vratiListuMojihIzostanaka()){
+                //System.out.println(vratiListuMojihIzostanaka().size());
+                ucitajListu(i.getId(), Yodstojanje, 5);
+                Yodstojanje += 215;
+            }
+        }
+
+    }
+    private ArrayList<Izostanci> vratiListuMojihIzostanaka(){
+        ArrayList<Izostanci> temp = new ArrayList<>();
+        for(Izostanci i : Izostanci.getSviIzostanci().values())
+            if(i.getUcenik().getId()==idUlogovanog)
+                temp.add(i);
+
+        temp.sort((o1,o2) -> o2.getDatum().compareTo(o1.getDatum()));
+        return temp;
+    }
     private ArrayList<Ocjena> prikaziSveOcjeneUcenika(Ucenik ucenik, Skola skola){
         ArrayList<Ocjena> temp = new ArrayList<>();
         for(Ocjena o : Ocjena.getSveOcjene().values())

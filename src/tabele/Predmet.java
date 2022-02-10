@@ -47,10 +47,6 @@ public class Predmet {
 
     @Override
     public String toString() {
-        return "Predmet{" +
-                "naziv='" + naziv + '\'' +
-                ", razred=" + razred +
-                ", id=" + id +
-                '}';
+        return naziv+" "+razred;
     }
 }

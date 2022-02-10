@@ -199,10 +199,21 @@ public class Controller {
             }
             case 4 -> {
                 image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("resources/img/prof-grade.png")));
-                label.setText((Ocjena.getSveOcjene().get(id)).getPredmet().getPredmet().getNaziv()+" "+(Ocjena.getSveOcjene().get(id)).getPredmet().getPredmet().getRazred());
-                info.setText("Ocjena: "+Ocjena.getSveOcjene().get(id).getOcjena()
-                        +"\n"
-                        +"Datum: "+Ocjena.getSveOcjene().get(id).getDatum().toString());
+                if(!nalogTip){
+                    label.setText((Ocjena.getSveOcjene().get(id)).getPredmet().getPredmet().getNaziv()+" "+(Ocjena.getSveOcjene().get(id)).getPredmet().getPredmet().getRazred());
+                    info.setText("Ocjena: "+Ocjena.getSveOcjene().get(id).getOcjena()
+                            +"\n"
+                            +"Datum: "+Ocjena.getSveOcjene().get(id).getDatum().toString());
+                }
+                else {
+                    label.setText((OcjenaPredmeta.getSveOcjenePredmeta().get(id)).getPredmet().getPredmet().toString());
+                    info.setText("Ocjena: "+OcjenaPredmeta.getSveOcjenePredmeta().get(id).getOcjena());
+                }
+            }
+            case 5 -> {
+                image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("resources/img/izostanak.png")));
+                label.setText((Izostanci.getSviIzostanci().get(id)).getPredmet().getPredmet().toString());
+                info.setText("Datum: "+Izostanci.getSviIzostanci().get(id).getDatum().toString());
             }
             default -> {
                 System.out.println("nije dobar tip liste");

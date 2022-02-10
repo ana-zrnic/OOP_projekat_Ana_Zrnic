@@ -17,6 +17,7 @@ public class Izostanci {
         this.ucenik = ucenik;
         this.predmet = predmet;
         this.datum = LocalDate.parse(datum);
+        this.id = id;
 
         sviIzostanci.put(id,this);
     }
